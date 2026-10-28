@@ -68,14 +68,14 @@
     overflow-x: hidden;
   }
 
-  /* ===== BACKGROUND & AETHER PARTICLES ===== */
+  /* ===== BACKGROUND & AETHER PARTICLES (SÁNG RÕ, KHÔNG BỊ MỜ TỐI) ===== */
   .bg-layer {
     position: fixed;
     inset: 0;
     z-index: -3;
     background: url('mainVisual.webp') center top / cover no-repeat;
-    filter: brightness(0.55) contrast(1.1);
-    transform: scale(1.02);
+    filter: brightness(0.88) contrast(1.06) saturate(1.05);
+    transform: scale(1.01);
   }
 
   .veil-layer {
@@ -83,13 +83,15 @@
     inset: 0;
     z-index: -2;
     background:
-      radial-gradient(circle at 50% 8%, rgba(255, 122, 26, 0.16), transparent 50%),
-      radial-gradient(circle at 85% 28%, rgba(234, 88, 12, 0.12), transparent 45%),
+      radial-gradient(circle at 50% 10%, rgba(255, 140, 40, 0.16), transparent 55%),
+      radial-gradient(circle at 82% 25%, rgba(139, 92, 246, 0.14), transparent 50%),
+      radial-gradient(circle at 18% 38%, rgba(2, 132, 199, 0.12), transparent 50%),
       linear-gradient(180deg,
-        rgba(8, 10, 17, 0.52) 0%,
-        rgba(8, 10, 17, 0.82) 20%,
-        rgba(8, 10, 17, 0.95) 60%,
-        rgba(8, 10, 17, 0.99) 100%);
+        rgba(8, 10, 17, 0.12) 0%,
+        rgba(8, 10, 17, 0.32) 25%,
+        rgba(8, 10, 17, 0.60) 60%,
+        rgba(8, 10, 17, 0.82) 100%);
+    pointer-events: none;
   }
 
   #particleCanvas {

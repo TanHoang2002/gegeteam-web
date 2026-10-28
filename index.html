@@ -13,7 +13,7 @@
 <meta property="og:image" content="mainVisual.webp">
 
 <!-- Favicon -->
-<link rel="icon" href="logo.gif" type="image/gif">
+<link rel="icon" href="avatar.png" type="image/png">
 
 <!-- Google Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -263,7 +263,8 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transform: scale(1.55);
+    object-position: center;
+    transform: scale(1.02);
   }
 
   .gff-badge {
@@ -373,7 +374,8 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transform: scale(1.6);
+    object-position: center;
+    transform: scale(1.02);
   }
 
   .gfm-title {
@@ -717,9 +719,13 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
-    object-position: center 46%;
-    transform: scale(1.85);
+    object-position: center;
+    transform: scale(1.02);
     transition: transform 0.35s ease;
+  }
+
+  .hero-box:hover img {
+    transform: scale(1.08);
   }
 
   @keyframes spinRing {
@@ -2541,7 +2547,7 @@
 <!-- ======================================================== -->
 <div class="gege-fox-float-btn" id="gegeFoxFloatBtn" onclick="toggleFoxPopup()" title="Bấm mở Menu & Kênh Cộng Đồng">
   <div class="gff-avatar">
-    <img src="logo.gif" alt="GeGe Mascot">
+    <img src="avatar.png" alt="GeGe Mascot">
   </div>
   <span class="gff-badge">Menu</span>
 </div>
@@ -2558,7 +2564,7 @@
     <div class="hero-avatar-wrap">
       <div class="hero-ring"></div>
       <div class="hero-box">
-        <img src="logo.gif" alt="GeGe Mascot">
+        <img src="avatar.png" alt="GeGe Mascot">
       </div>
     </div>
 
@@ -3238,7 +3244,7 @@
     <!-- HEADER POPUP -->
     <div class="gfm-header">
       <div class="gfm-avatar-wrap">
-        <img src="logo.gif" alt="GeGe Mascot">
+        <img src="avatar.png" alt="GeGe Mascot">
       </div>
       <div class="gfm-brand-info">
         <div class="gfm-title">GeGe Team</div>

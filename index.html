@@ -25,21 +25,26 @@
 
 <style>
   :root {
-    --bg-deep: #030612;
-    --bg-card: rgba(9, 15, 30, 0.82);
-    --bg-card-hover: rgba(14, 23, 46, 0.9);
-    --bg-card-solid: #0b1429;
-    --border-card: rgba(255, 255, 255, 0.1);
-    --border-gold: rgba(255, 217, 132, 0.35);
+    --bg-deep: #080a11;
+    --bg-card: rgba(14, 18, 30, 0.88);
+    --bg-card-hover: rgba(22, 28, 46, 0.94);
+    --bg-card-solid: #0d1222;
+    --border-card: rgba(255, 255, 255, 0.08);
+    --border-gold: rgba(255, 140, 40, 0.32);
     
-    --gold-0: #fff9e6;
-    --gold-1: #ffd984;
-    --gold-2: #dfa84b;
-    --gold-3: #9b6e22;
+    /* Fox Theme Accents (Màu Cam Cáo) */
+    --gold-0: #fff5eb;
+    --gold-1: #ff9838; /* Warm fox amber/orange */
+    --gold-2: #ea580c; /* Rich fox orange */
+    --gold-3: #9a3412; /* Deep terracotta fox */
     
-    --cyan-glow: #67e8ff;
-    --cyan-bright: #38d8f7;
-    --purple-aether: #9d5cff;
+    --fox-orange: #ff7a1a;
+    --fox-amber: #f59e0b;
+    --fox-glow: rgba(255, 122, 26, 0.35);
+
+    --cyan-glow: rgba(255, 122, 26, 0.25);
+    --cyan-bright: #38bdf8;
+    --purple-aether: #ea580c;
     --green-sheet: #0b7a3e;
     --green-bright: #22c55e;
     --red-glow: #ff4d4d;
@@ -69,7 +74,7 @@
     inset: 0;
     z-index: -3;
     background: url('mainVisual.webp') center top / cover no-repeat;
-    filter: brightness(0.62) contrast(1.12);
+    filter: brightness(0.55) contrast(1.1);
     transform: scale(1.02);
   }
 
@@ -78,13 +83,13 @@
     inset: 0;
     z-index: -2;
     background:
-      radial-gradient(circle at 50% 10%, rgba(103, 232, 255, 0.15), transparent 48%),
-      radial-gradient(circle at 85% 30%, rgba(157, 92, 255, 0.14), transparent 50%),
+      radial-gradient(circle at 50% 8%, rgba(255, 122, 26, 0.16), transparent 50%),
+      radial-gradient(circle at 85% 28%, rgba(234, 88, 12, 0.12), transparent 45%),
       linear-gradient(180deg,
-        rgba(3, 6, 18, 0.52) 0%,
-        rgba(3, 6, 18, 0.82) 20%,
-        rgba(3, 6, 18, 0.95) 60%,
-        rgba(3, 6, 18, 0.99) 100%);
+        rgba(8, 10, 17, 0.52) 0%,
+        rgba(8, 10, 17, 0.82) 20%,
+        rgba(8, 10, 17, 0.95) 60%,
+        rgba(8, 10, 17, 0.99) 100%);
   }
 
   #particleCanvas {
@@ -94,7 +99,7 @@
     pointer-events: none;
   }
 
-  /* ===== VERTICAL NAVIGATION (LEFT SIDEBAR - INSPIRATION FROM REFERENCE) ===== */
+  /* ===== VERTICAL NAVIGATION (LEFT SIDEBAR) ===== */
   .left-vertical-nav {
     position: fixed;
     left: 28px;
@@ -103,20 +108,20 @@
     z-index: 90;
     display: flex;
     flex-direction: column;
-    padding: 18px 14px 18px 8px;
-    background: rgba(4, 9, 22, 0.65);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 24px;
+    padding: 16px 14px 16px 10px;
+    background: rgba(10, 14, 26, 0.78);
+    border: 1px solid rgba(255, 140, 40, 0.18);
+    border-radius: 20px;
     backdrop-filter: blur(14px);
     -webkit-backdrop-filter: blur(14px);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6), 0 0 20px rgba(103, 232, 255, 0.08);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6), 0 0 20px rgba(255, 122, 26, 0.08);
   }
 
   .nav-timeline {
     position: relative;
     display: flex;
     flex-direction: column;
-    gap: 22px;
+    gap: 20px;
   }
 
   /* Vertical Connecting Line */
@@ -129,8 +134,8 @@
     width: 2px;
     background: repeating-linear-gradient(
       to bottom,
-      rgba(255, 255, 255, 0.2),
-      rgba(255, 255, 255, 0.2) 4px,
+      rgba(255, 140, 40, 0.25),
+      rgba(255, 140, 40, 0.25) 4px,
       transparent 4px,
       transparent 8px
     );
@@ -142,36 +147,43 @@
     z-index: 2;
     display: flex;
     align-items: center;
-    gap: 14px;
+    gap: 12px;
     text-decoration: none;
     color: var(--text-muted);
     font-weight: 700;
     font-size: 14px;
-    padding: 4px 10px 4px 6px;
+    padding: 6px 12px 6px 6px;
     border-radius: 12px;
-    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    transition: all 0.22s ease;
     white-space: nowrap;
     cursor: pointer;
   }
 
   /* Circular Node */
   .v-nav-node {
-    width: 18px;
-    height: 18px;
+    width: 16px;
+    height: 16px;
     border-radius: 50%;
-    background: #091224;
-    border: 2px solid rgba(255, 255, 255, 0.35);
+    background: #0d1222;
+    border: 2px solid rgba(255, 255, 255, 0.3);
     box-shadow: inset 0 0 4px rgba(0,0,0,0.8);
-    transition: all 0.28s ease;
+    transition: all 0.25s ease;
     flex-shrink: 0;
     position: relative;
+  }
+
+  .v-nav-icon {
+    display: none;
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
   }
 
   .v-nav-text {
     font-family: 'Cinzel', serif;
     letter-spacing: 0.04em;
     font-size: 13.5px;
-    transition: all 0.25s ease;
+    transition: all 0.22s ease;
     text-shadow: 0 2px 6px rgba(0, 0, 0, 0.9);
   }
 
@@ -181,133 +193,394 @@
   }
 
   .v-nav-item:hover .v-nav-node {
-    border-color: var(--cyan-bright);
-    background: rgba(103, 232, 255, 0.3);
-    box-shadow: 0 0 10px var(--cyan-bright);
+    border-color: var(--gold-1);
+    background: rgba(255, 122, 26, 0.25);
+    box-shadow: 0 0 8px rgba(255, 122, 26, 0.6);
   }
 
-  /* ACTIVE STATE - GLOWING AS REQUESTED BY USER */
+  /* ACTIVE STATE */
   .v-nav-item.active {
     color: #fff;
-    transform: translateX(6px);
+    transform: translateX(5px);
   }
 
   .v-nav-item.active .v-nav-node {
-    background: linear-gradient(135deg, #ffd984, #dfa84b);
+    background: linear-gradient(135deg, var(--gold-1), var(--gold-2));
     border-color: #fff;
-    box-shadow: 0 0 14px #ffd984, 0 0 24px rgba(223, 168, 75, 0.8);
-    animation: activeGlowPulse 2s infinite ease-in-out;
+    box-shadow: 0 0 10px var(--gold-1), 0 0 20px rgba(234, 88, 12, 0.6);
   }
 
   .v-nav-item.active .v-nav-text {
     color: var(--gold-1);
     font-weight: 900;
     font-size: 14.5px;
-    text-shadow: 0 0 12px rgba(255, 217, 132, 0.8), 0 0 24px rgba(223, 168, 75, 0.4);
+    text-shadow: 0 0 12px rgba(255, 152, 56, 0.6);
   }
 
-  @keyframes activeGlowPulse {
-    0%, 100% { transform: scale(1.15); box-shadow: 0 0 14px #ffd984, 0 0 24px rgba(223, 168, 75, 0.8); }
-    50% { transform: scale(1.28); box-shadow: 0 0 20px #ffd984, 0 0 35px rgba(255, 217, 132, 0.9); }
-  }
-
-  /* ===== RIGHT STICKY WIDGET (INSPIRATION FROM REFERENCE SIDE BANNER) ===== */
-  .right-sticky-banner {
+  /* ===== RIGHT FLOATING FOX BUTTON (DESKTOP & MOBILE) ===== */
+  .gege-fox-float-btn {
     position: fixed;
-    right: 20px;
+    right: 24px;
     top: 50%;
     transform: translateY(-50%);
-    z-index: 88;
+    z-index: 96;
+    width: 62px;
+    height: 62px;
+    border-radius: 50%;
+    cursor: pointer;
     display: flex;
-    flex-direction: column;
     align-items: center;
-    gap: 8px;
-    background: linear-gradient(160deg, rgba(16, 26, 52, 0.9), rgba(8, 14, 30, 0.94));
-    border: 1.5px solid rgba(255, 217, 132, 0.35);
-    border-radius: 20px;
-    padding: 14px 10px;
-    backdrop-filter: blur(14px);
-    box-shadow: 0 12px 36px rgba(0, 0, 0, 0.7), 0 0 24px rgba(223, 168, 75, 0.15);
-    width: 90px;
-    transition: all 0.25s;
+    justify-content: center;
+    background: #0a0d18;
+    border: 2px solid var(--gold-1);
+    box-shadow: 0 8px 26px rgba(0, 0, 0, 0.75), 0 0 22px rgba(255, 140, 40, 0.5);
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
   }
 
-  .right-sticky-avatar {
+  .gege-fox-float-btn:hover {
+    transform: translateY(-50%) scale(1.08);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.85), 0 0 30px rgba(255, 152, 56, 0.75);
+    border-color: #fff;
+  }
+
+  .gege-fox-float-btn:active {
+    transform: translateY(-50%) scale(0.95);
+  }
+
+  .gff-avatar {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .gff-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transform: scale(1.55);
+  }
+
+  .gff-badge {
+    position: absolute;
+    bottom: -6px;
+    background: linear-gradient(135deg, var(--gold-1), var(--gold-2));
+    color: #080a11;
+    font-size: 9.5px;
+    font-weight: 900;
+    padding: 1px 7px;
+    border-radius: 8px;
+    letter-spacing: 0.5px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.5);
+    border: 1px solid rgba(255,255,255,0.4);
+    text-transform: uppercase;
+  }
+
+  /* ===== MODAL POPUP TIỆN ÍCH DẠNG DỌC (KHÔNG CÓ MÃ QR) ===== */
+  .gege-fox-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 999;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+
+  .gege-fox-modal.show {
+    display: flex;
+  }
+
+  .gfm-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(4, 7, 16, 0.78);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+  }
+
+  .gfm-card {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    max-width: 410px;
+    background: linear-gradient(165deg, rgba(22, 28, 48, 0.96), rgba(10, 13, 24, 0.98));
+    border: 1.5px solid rgba(255, 152, 56, 0.38);
+    border-radius: 24px;
+    padding: 24px 20px 22px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    box-shadow: 0 16px 48px rgba(0,0,0,0.85), 0 0 32px rgba(255, 122, 26, 0.22);
+    animation: modalPop 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  @keyframes modalPop {
+    from { opacity: 0; transform: scale(0.92); }
+    to { opacity: 1; transform: scale(1); }
+  }
+
+  .gfm-close {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    color: #fff;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+  }
+
+  .gfm-close:hover {
+    background: rgba(239, 68, 68, 0.8);
+    border-color: #ef4444;
+    transform: rotate(90deg);
+  }
+
+  .gfm-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .gfm-avatar-wrap {
     width: 52px;
     height: 52px;
     border-radius: 50%;
     overflow: hidden;
     border: 2px solid var(--gold-1);
-    box-shadow: 0 0 14px rgba(255, 217, 132, 0.5);
-    margin-bottom: 4px;
-    background: #080f21;
+    box-shadow: 0 0 14px rgba(255, 152, 56, 0.5);
+    background: #0d1222;
+    flex-shrink: 0;
   }
 
-  .right-sticky-avatar img {
+  .gfm-avatar-wrap img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     transform: scale(1.6);
   }
 
-  .right-btn-item {
-    width: 100%;
-    padding: 7px 4px;
-    border-radius: 10px;
+  .gfm-title {
+    font-family: 'Cinzel', serif;
+    font-size: 18px;
+    font-weight: 900;
+    color: #fff;
+    letter-spacing: 0.04em;
+    line-height: 1.2;
+  }
+
+  .gfm-sub {
+    font-size: 11.5px;
+    color: var(--text-muted);
+    margin-top: 2px;
+  }
+
+  /* CÁC NÚT DẠNG DỌC (ACTIONS VERTICAL) */
+  .gfm-actions-vertical {
     display: flex;
     flex-direction: column;
+    gap: 9px;
+  }
+
+  .gfm-row-btn {
+    display: flex;
     align-items: center;
-    gap: 3px;
+    gap: 12px;
+    padding: 11px 14px;
+    border-radius: 14px;
     text-decoration: none;
-    font-size: 10.5px;
-    font-weight: 800;
-    color: #fff;
-    background: rgba(255, 255, 255, 0.06);
-    border: 1px solid rgba(255, 255, 255, 0.1);
     transition: all 0.2s;
-    text-align: center;
-    cursor: pointer;
+    border: 1px solid transparent;
   }
 
-  .right-btn-item:hover {
-    background: rgba(255, 217, 132, 0.2);
-    border-color: var(--gold-1);
-    transform: scale(1.05);
-    color: var(--gold-1);
+  .gfm-row-btn:hover {
+    transform: translateX(4px);
+    filter: brightness(1.1);
   }
 
-  .right-btn-item.cta-gold {
-    background: linear-gradient(135deg, var(--gold-2), var(--gold-3));
-    color: #050a18;
-    border-color: rgba(255, 255, 255, 0.3);
-    box-shadow: 0 4px 12px rgba(223, 168, 75, 0.4);
+  .gfm-row-icon {
+    width: 34px;
+    height: 34px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
   }
 
-  .right-btn-item.cta-gold:hover {
-    background: var(--gold-1);
-    box-shadow: 0 6px 18px rgba(255, 217, 132, 0.6);
+  .gfm-row-text {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
   }
 
-  .right-qr-thumb {
-    margin-top: 4px;
-    width: 60px;
-    height: 60px;
-    background: #fff;
-    border-radius: 8px;
-    padding: 4px;
-    cursor: pointer;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+  .gfm-row-title {
+    font-size: 13.5px;
+    font-weight: 800;
+    line-height: 1.25;
+  }
+
+  .gfm-row-desc {
+    font-size: 11px;
+    opacity: 0.85;
+    margin-top: 2px;
+  }
+
+  .gfm-row-arrow {
+    font-size: 14px;
+    opacity: 0.6;
     transition: transform 0.2s;
   }
 
-  .right-qr-thumb:hover {
-    transform: scale(1.08);
+  .gfm-row-btn:hover .gfm-row-arrow {
+    transform: translateX(3px);
+    opacity: 1;
   }
 
-  .right-qr-thumb img {
-    width: 100%;
-    height: 100%;
-    display: block;
+  .gfm-btn-orange {
+    background: linear-gradient(135deg, #ff9838 0%, #ea580c 100%);
+    color: #080a11;
+    box-shadow: 0 4px 14px rgba(234, 88, 12, 0.4);
+    border-color: rgba(255, 255, 255, 0.2);
+  }
+
+  .gfm-btn-orange .gfm-row-icon {
+    background: rgba(0, 0, 0, 0.15);
+    color: #080a11;
+  }
+
+  .gfm-btn-purple {
+    background: linear-gradient(135deg, #8b5cf6 0%, #6366f1 100%);
+    color: #ffffff;
+    box-shadow: 0 4px 14px rgba(139, 92, 246, 0.4);
+    border-color: rgba(216, 180, 254, 0.3);
+  }
+
+  .gfm-btn-purple .gfm-row-icon {
+    background: rgba(255, 255, 255, 0.15);
+    color: #ffffff;
+  }
+
+  .gfm-btn-blue {
+    background: linear-gradient(135deg, #0284c7 0%, #0066cc 100%);
+    color: #ffffff;
+    box-shadow: 0 4px 14px rgba(2, 132, 199, 0.4);
+    border-color: rgba(186, 230, 253, 0.3);
+  }
+
+  .gfm-btn-blue .gfm-row-icon {
+    background: rgba(255, 255, 255, 0.15);
+    color: #ffffff;
+  }
+
+  .gfm-section-label {
+    font-size: 11px;
+    font-weight: 800;
+    color: var(--gold-1);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-top: 4px;
+    padding-left: 2px;
+  }
+
+  /* KÊNH CỘNG ĐỒNG DẠNG DỌC (KHÔNG GOM CHUNG SQUISHED) */
+  .gfm-channels-vertical {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+  }
+
+  .gfm-channel-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 12px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+    text-decoration: none;
+    color: #fff;
+    transition: all 0.2s;
+  }
+
+  .gfm-channel-item:hover {
+    background: rgba(255, 140, 40, 0.12);
+    border-color: rgba(255, 152, 56, 0.35);
+    transform: translateX(3px);
+  }
+
+  .gci-badge {
+    width: 34px;
+    height: 34px;
+    border-radius: 9px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 900;
+    flex-shrink: 0;
+    color: #fff;
+  }
+
+  .gci-badge.z-badge { background: #0284c7; }
+  .gci-badge.fb-badge { background: #1d4ed8; }
+  .gci-badge.grp-badge { background: #2563eb; }
+  .gci-badge.dc-badge { background: #5865f2; }
+
+  .gci-info {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .gci-title {
+    font-size: 12.5px;
+    font-weight: 700;
+    color: #fff;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .gci-desc {
+    font-size: 10.5px;
+    color: var(--text-dim);
+    margin-top: 1px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .gci-btn {
+    font-size: 10.5px;
+    font-weight: 700;
+    color: var(--gold-1);
+    background: rgba(255, 152, 56, 0.12);
+    border: 1px solid rgba(255, 152, 56, 0.25);
+    padding: 4px 10px;
+    border-radius: 8px;
+    white-space: nowrap;
+    transition: all 0.2s;
+  }
+
+  .gfm-channel-item:hover .gci-btn {
+    background: var(--gold-1);
+    color: #080a11;
   }
 
   /* ===== MAIN CONTENT WRAPPER ===== */
@@ -529,42 +802,97 @@
     flex-wrap: wrap;
   }
 
+  /* CẢ 3 NÚT HERO ĐỀU CÓ MÀU ĐẶC BIỆT, NỔI BẬT & ĐẲNG CẤP GAMING */
+  .btn-hero-orange,
   .btn-hero-primary {
     display: inline-flex;
     align-items: center;
     gap: 10px;
-    padding: 12px 26px;
+    padding: 12px 24px;
     border-radius: 14px;
-    background: linear-gradient(135deg, var(--gold-1), var(--gold-2));
-    color: #040918;
+    background: linear-gradient(135deg, #ff9838 0%, #ea580c 100%);
+    color: #080a11;
     font-family: inherit;
     font-size: 14px;
     font-weight: 800;
     text-decoration: none;
-    box-shadow: 0 8px 24px rgba(223, 168, 75, 0.45);
+    box-shadow: 0 8px 24px rgba(234, 88, 12, 0.45);
+    border: 1px solid rgba(255, 255, 255, 0.25);
     transition: all 0.22s;
+    cursor: pointer;
   }
 
+  .btn-hero-orange:hover,
   .btn-hero-primary:hover {
     transform: translateY(-2px);
-    box-shadow: 0 12px 30px rgba(223, 168, 75, 0.65);
+    box-shadow: 0 12px 30px rgba(255, 152, 56, 0.65);
+    filter: brightness(1.08);
+  }
+
+  .btn-hero-purple {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 24px;
+    border-radius: 14px;
+    background: linear-gradient(135deg, #8b5cf6 0%, #6366f1 100%);
+    color: #ffffff;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 800;
+    text-decoration: none;
+    box-shadow: 0 8px 24px rgba(139, 92, 246, 0.45);
+    border: 1px solid rgba(216, 180, 254, 0.4);
+    transition: all 0.22s;
+    cursor: pointer;
+  }
+
+  .btn-hero-purple:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 30px rgba(167, 139, 250, 0.65);
+    filter: brightness(1.08);
+  }
+
+  .btn-hero-blue {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 24px;
+    border-radius: 14px;
+    background: linear-gradient(135deg, #0284c7 0%, #0066cc 100%);
+    color: #ffffff;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 800;
+    text-decoration: none;
+    box-shadow: 0 8px 24px rgba(2, 132, 199, 0.45);
+    border: 1px solid rgba(186, 230, 253, 0.4);
+    transition: all 0.22s;
+    cursor: pointer;
+  }
+
+  .btn-hero-blue:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 30px rgba(56, 189, 248, 0.65);
+    filter: brightness(1.08);
   }
 
   .btn-hero-secondary {
     display: inline-flex;
     align-items: center;
     gap: 10px;
-    padding: 12px 24px;
-    border-radius: 14px;
+    padding: 10px 20px;
+    border-radius: 12px;
     background: rgba(255, 255, 255, 0.08);
     border: 1px solid rgba(255, 255, 255, 0.18);
     color: #fff;
     font-family: inherit;
-    font-size: 14px;
+    font-size: 13.5px;
     font-weight: 700;
     text-decoration: none;
     backdrop-filter: blur(10px);
     transition: all 0.22s;
+    cursor: pointer;
   }
 
   .btn-hero-secondary:hover {
@@ -1330,194 +1658,438 @@
     box-shadow: 0 4px 18px rgba(34, 197, 94, 0.5);
   }
 
-  /* BOOSTER PACKS GRID (GIAO DIỆN CÁC GÓI BOOSTER) */
+  /* ===== BOOSTER SECTION STYLES (THEO POSTER AION 2) ===== */
   .booster-sub-panel {
     display: none;
     flex-direction: column;
+    gap: 20px;
+  }
+
+  .booster-header-banner {
+    background: linear-gradient(135deg, rgba(234, 88, 12, 0.18), rgba(13, 17, 28, 0.95));
+    border: 1.5px solid rgba(255, 140, 40, 0.35);
+    border-radius: 18px;
+    padding: 18px 22px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+    box-shadow: 0 10px 28px rgba(0,0,0,0.5), inset 0 0 20px rgba(255, 122, 26, 0.08);
+  }
+
+  .bhb-title {
+    font-family: 'Cinzel', serif;
+    font-size: 19px;
+    font-weight: 900;
+    color: #fff;
+    letter-spacing: 0.04em;
+  }
+
+  .bhb-title span {
+    color: var(--gold-1);
+  }
+
+  .bhb-sub {
+    font-size: 13px;
+    color: #fed7aa;
+    margin-top: 3px;
+  }
+
+  .bhb-contacts {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .bhb-contact-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 7px 14px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    font-size: 12px;
+    font-weight: 700;
+    color: #fff;
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+
+  .bhb-contact-chip:hover {
+    background: rgba(255, 140, 40, 0.25);
+    border-color: var(--gold-1);
+    color: var(--gold-1);
+    transform: translateY(-2px);
+  }
+
+  /* COMBO CARDS (2 PHẾ & 2 PHẾ VIP) */
+  .booster-combos-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
     gap: 18px;
   }
 
-  .booster-cards-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  .combo-card {
+    position: relative;
+    border-radius: 20px;
+    padding: 22px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     gap: 16px;
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    overflow: hidden;
   }
 
-  .booster-card {
-    background: rgba(4, 9, 24, 0.85);
-    border: 1px solid rgba(255, 217, 132, 0.25);
+  .combo-card.combo-standard {
+    background: linear-gradient(165deg, rgba(14, 26, 46, 0.95), rgba(8, 14, 26, 0.98));
+    border: 1.5px solid rgba(56, 189, 248, 0.4);
+    box-shadow: 0 14px 34px rgba(0, 0, 0, 0.7), 0 0 20px rgba(56, 189, 248, 0.15);
+  }
+
+  .combo-card.combo-standard:hover {
+    transform: translateY(-4px);
+    border-color: #38bdf8;
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.8), 0 0 28px rgba(56, 189, 248, 0.3);
+  }
+
+  .combo-card.combo-vip {
+    background: linear-gradient(165deg, rgba(28, 20, 16, 0.95), rgba(14, 10, 8, 0.98));
+    border: 1.5px solid rgba(255, 152, 56, 0.5);
+    box-shadow: 0 14px 34px rgba(0, 0, 0, 0.7), 0 0 24px rgba(255, 122, 26, 0.2);
+  }
+
+  .combo-card.combo-vip:hover {
+    transform: translateY(-4px);
+    border-color: var(--gold-1);
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.8), 0 0 32px rgba(255, 152, 56, 0.4);
+  }
+
+  .combo-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+  }
+
+  .combo-title {
+    font-family: 'Cinzel', serif;
+    font-size: 20px;
+    font-weight: 900;
+    letter-spacing: 0.04em;
+    color: #fff;
+  }
+
+  .combo-card.combo-standard .combo-title {
+    color: #7dd3fc;
+    text-shadow: 0 0 12px rgba(56, 189, 248, 0.5);
+  }
+
+  .combo-card.combo-vip .combo-title {
+    color: var(--gold-1);
+    text-shadow: 0 0 12px rgba(255, 152, 56, 0.6);
+  }
+
+  .combo-badge {
+    font-size: 11px;
+    font-weight: 800;
+    padding: 4px 10px;
+    border-radius: 999px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  .combo-badge.cyan {
+    background: rgba(56, 189, 248, 0.2);
+    border: 1px solid rgba(56, 189, 248, 0.5);
+    color: #bae6fd;
+  }
+
+  .combo-badge.gold {
+    background: rgba(255, 152, 56, 0.2);
+    border: 1px solid rgba(255, 152, 56, 0.5);
+    color: var(--gold-0);
+  }
+
+  .combo-features {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+    padding: 0;
+    margin: 4px 0;
+  }
+
+  .combo-features li {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    font-size: 13.5px;
+    color: #e2e8f0;
+    font-weight: 600;
+  }
+
+  .combo-features li .check-icon {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 900;
+    flex-shrink: 0;
+  }
+
+  .combo-card.combo-standard .check-icon {
+    background: rgba(56, 189, 248, 0.2);
+    color: #38bdf8;
+  }
+
+  .combo-card.combo-vip .check-icon {
+    background: rgba(255, 152, 56, 0.25);
+    color: var(--gold-1);
+  }
+
+  .combo-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    padding-top: 14px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .combo-price-val {
+    font-family: 'Cinzel', serif;
+    font-size: 30px;
+    font-weight: 900;
+    line-height: 1;
+  }
+
+  .combo-card.combo-standard .combo-price-val {
+    color: #38bdf8;
+    text-shadow: 0 0 16px rgba(56, 189, 248, 0.6);
+  }
+
+  .combo-card.combo-vip .combo-price-val {
+    color: var(--gold-1);
+    text-shadow: 0 0 18px rgba(255, 152, 56, 0.7);
+  }
+
+  .combo-btn {
+    padding: 10px 20px;
+    border-radius: 12px;
+    font-size: 13.5px;
+    font-weight: 800;
+    text-decoration: none;
+    transition: all 0.22s;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    white-space: nowrap;
+  }
+
+  .combo-card.combo-standard .combo-btn {
+    background: linear-gradient(135deg, #0284c7, #0369a1);
+    color: #fff;
+    box-shadow: 0 4px 14px rgba(2, 132, 199, 0.4);
+  }
+  .combo-card.combo-standard .combo-btn:hover {
+    background: #38bdf8;
+    color: #040918;
+    box-shadow: 0 6px 20px rgba(56, 189, 248, 0.6);
+  }
+
+  .combo-card.combo-vip .combo-btn {
+    background: linear-gradient(135deg, var(--gold-1), var(--gold-2));
+    color: #080a11;
+    box-shadow: 0 4px 16px rgba(234, 88, 12, 0.5);
+  }
+  .combo-card.combo-vip .combo-btn:hover {
+    background: #ffa858;
+    box-shadow: 0 6px 22px rgba(255, 152, 56, 0.7);
+  }
+
+  /* SINGLE SERVICES PANEL */
+  .booster-single-panel {
+    background: rgba(10, 14, 24, 0.75);
+    border: 1px solid rgba(255, 255, 255, 0.09);
     border-radius: 18px;
     padding: 20px;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
     gap: 14px;
-    transition: all 0.25s;
-    position: relative;
-    overflow: hidden;
   }
 
-  .booster-card::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 3px;
-    background: linear-gradient(90deg, var(--gold-1), var(--cyan-bright));
+  .bsp-title-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    flex-wrap: wrap;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    padding-bottom: 12px;
   }
 
-  .booster-card:hover {
-    transform: translateY(-4px);
-    border-color: var(--cyan-bright);
-    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.7), 0 0 20px rgba(103, 232, 255, 0.2);
-  }
-
-  .bc-tag {
-    position: absolute;
-    top: 14px; right: 14px;
-    font-size: 10.5px;
-    font-weight: 800;
-    padding: 3px 8px;
-    border-radius: 6px;
-    background: rgba(239, 68, 68, 0.2);
-    border: 1px solid rgba(239, 68, 68, 0.4);
-    color: #fca5a5;
-  }
-
-  .bc-title {
+  .bsp-title {
     font-family: 'Cinzel', serif;
-    font-size: 18px;
-    font-weight: 800;
-    color: var(--gold-1);
-  }
-
-  .bc-desc {
-    font-size: 12.5px;
-    color: var(--text-muted);
-    line-height: 1.45;
-  }
-
-  .bc-features {
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-    font-size: 12px;
-    color: #e2e8f0;
-  }
-
-  .bc-features li {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-  }
-
-  .bc-features li svg {
-    color: #22c55e;
-    flex-shrink: 0;
-  }
-
-  .bc-price-box {
-    background: rgba(255, 255, 255, 0.04);
-    border-radius: 10px;
-    padding: 10px 14px;
-    display: flex;
-    align-items: baseline;
-    justify-content: space-between;
-  }
-
-  .bc-price-lbl { font-size: 11px; color: var(--text-dim); }
-  .bc-price-val { font-family: 'JetBrains Mono', monospace; font-size: 18px; font-weight: 900; color: #fff; }
-
-  /* ===== SECTION 4: CỘNG ĐỒNG ===== */
-  .community-cards-list {
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
-  }
-
-  .comm-item {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    padding: 16px 20px;
-    border-radius: 18px;
-    background: rgba(4, 9, 24, 0.85);
-    border: 1px solid var(--border-card);
-    transition: all 0.22s;
-    cursor: pointer;
-  }
-
-  .comm-item:hover {
-    transform: translateY(-2px);
-    border-color: var(--cyan-bright);
-    box-shadow: 0 10px 28px -6px rgba(0, 0, 0, 0.7);
-  }
-
-  .comm-icon {
-    width: 48px;
-    height: 48px;
-    border-radius: 14px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: var(--icon-bg);
-    flex-shrink: 0;
-  }
-
-  .comm-icon svg { width: 26px; height: 26px; fill: #fff; }
-
-  .comm-info { flex: 1; }
-  .comm-title {
     font-size: 16px;
     font-weight: 800;
     color: #fff;
+  }
+
+  .booster-services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 12px;
+  }
+
+  .bs-item {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 14px;
+    padding: 12px 14px;
     display: flex;
     align-items: center;
-    gap: 8px;
+    justify-content: space-between;
+    gap: 10px;
+    transition: all 0.2s;
   }
 
-  .comm-tag {
-    font-size: 10px;
-    font-weight: 700;
-    padding: 2px 7px;
-    border-radius: 6px;
-    background: rgba(255, 255, 255, 0.12);
-    color: var(--gold-1);
-    text-transform: uppercase;
+  .bs-item:hover {
+    background: rgba(255, 140, 40, 0.08);
+    border-color: rgba(255, 140, 40, 0.3);
+    transform: translateY(-2px);
   }
 
-  .comm-desc {
-    font-size: 13px;
-    color: var(--text-muted);
-    margin-top: 3px;
-  }
-
-  .comm-actions {
+  .bsi-left {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 10px;
   }
 
-  .action-icon-btn {
+  .bsi-icon {
     width: 36px;
     height: 36px;
     border-radius: 10px;
+    background: rgba(255, 152, 56, 0.15);
+    border: 1px solid rgba(255, 152, 56, 0.3);
+    color: var(--gold-1);
     display: flex;
     align-items: center;
     justify-content: center;
-    background: rgba(255, 255, 255, 0.06);
-    border: 1px solid rgba(255, 255, 255, 0.12);
-    color: #92a2cc;
-    cursor: pointer;
-    transition: all 0.2s;
-    text-decoration: none;
+    font-size: 16px;
+    flex-shrink: 0;
   }
 
-  .action-icon-btn:hover {
-    background: rgba(255, 255, 255, 0.18);
+  .bsi-name {
+    font-size: 13.5px;
+    font-weight: 700;
     color: #fff;
-    border-color: #fff;
   }
+
+  .bsi-sub {
+    font-size: 11.5px;
+    color: var(--text-dim);
+    margin-top: 2px;
+  }
+
+  .bsi-right {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 4px;
+    flex-shrink: 0;
+  }
+
+  .bsi-price {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 15px;
+    font-weight: 800;
+    color: var(--gold-1);
+  }
+
+  .bsi-action {
+    font-size: 11px;
+    font-weight: 700;
+    color: #38bdf8;
+    text-decoration: none;
+    padding: 3px 8px;
+    border-radius: 6px;
+    background: rgba(56, 189, 248, 0.1);
+    transition: all 0.18s;
+  }
+
+  .bsi-action:hover {
+    background: #38bdf8;
+    color: #040918;
+  }
+
+  /* POSTER LIGHTBOX MODAL */
+  .poster-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+
+  .poster-modal.show {
+    display: flex;
+  }
+
+  .poster-modal-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.88);
+    backdrop-filter: blur(10px);
+  }
+
+  .poster-modal-content {
+    position: relative;
+    z-index: 2;
+    max-width: 90vw;
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .poster-modal-content img {
+    max-width: 100%;
+    max-height: 82vh;
+    object-fit: contain;
+    border-radius: 16px;
+    border: 2px solid var(--gold-1);
+    box-shadow: 0 16px 50px rgba(0,0,0,0.9);
+  }
+
+  .poster-modal-close {
+    position: absolute;
+    top: -14px;
+    right: -14px;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: #ef4444;
+    color: #fff;
+    border: 2px solid #fff;
+    font-size: 16px;
+    font-weight: 900;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.6);
+  }
+
+
 
   /* ===== SECTION 5: TIN TỨC & HỖ TRỢ NGƯỜI CHƠI ===== */
   .news-support-container {
@@ -1814,8 +2386,8 @@
   /* RESPONSIVE BREAKPOINTS */
   @media (max-width: 1080px) {
     .main-wrapper {
-      padding-left: 20px;
-      padding-right: 20px;
+      padding-left: 18px;
+      padding-right: 18px;
       padding-bottom: 90px;
     }
     .left-vertical-nav {
@@ -1826,13 +2398,13 @@
       top: auto;
       transform: none;
       flex-direction: row;
-      padding: 0;
+      padding: 6px 12px 6px;
       border-radius: 0;
-      border-top: 1px solid rgba(255,255,255,0.1);
+      border-top: 1px solid rgba(255, 140, 40, 0.2);
       border-left: none;
       border-right: none;
       border-bottom: none;
-      background: rgba(4, 9, 22, 0.92);
+      background: rgba(8, 11, 20, 0.95);
       backdrop-filter: blur(18px);
       -webkit-backdrop-filter: blur(18px);
       box-shadow: 0 -4px 20px rgba(0,0,0,0.7);
@@ -1840,52 +2412,71 @@
     }
     .nav-timeline {
       flex-direction: row;
-      gap: 0;
+      gap: 6px;
       width: 100%;
     }
     .nav-timeline::before { display: none; }
+    
+    /* BỎ HOÀN TOÀN ĐẦU CHẤM PHÁT SÁNG Ở GIỮA TRÊN MOBILE */
+    .v-nav-node {
+      display: none !important;
+    }
+    .v-nav-icon {
+      display: flex !important;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-muted);
+      transition: all 0.2s;
+    }
+    .v-nav-icon svg {
+      width: 20px;
+      height: 20px;
+    }
     .v-nav-item {
       flex: 1;
       flex-direction: column;
       gap: 3px;
-      padding: 10px 4px 8px;
-      border-radius: 0;
+      padding: 7px 4px 6px;
+      border-radius: 12px;
       text-align: center;
       transform: none !important;
       font-size: 10px;
       color: var(--text-muted);
       justify-content: center;
-    }
-    .v-nav-node {
-      width: 22px;
-      height: 22px;
+      transition: background 0.2s, color 0.2s;
     }
     .v-nav-text {
       display: block !important;
       font-family: 'Plus Jakarta Sans', sans-serif;
-      font-size: 9.5px;
+      font-size: 10px;
       font-weight: 700;
       letter-spacing: 0;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
-      max-width: 62px;
+      max-width: 82px;
       text-shadow: none;
     }
     .v-nav-item.active {
-      background: rgba(255, 217, 132, 0.08);
+      background: rgba(255, 140, 40, 0.12);
       color: var(--gold-1);
+    }
+    .v-nav-item.active .v-nav-icon {
+      color: var(--gold-1);
+      transform: scale(1.1);
+      filter: drop-shadow(0 0 6px rgba(255, 152, 56, 0.5));
     }
     .v-nav-item.active .v-nav-text {
       color: var(--gold-1);
-      font-size: 9.5px;
+      font-size: 10px;
       font-weight: 800;
       text-shadow: none;
     }
     .v-nav-item.active .v-nav-node {
-      animation: activeGlowPulse 2s infinite ease-in-out;
+      animation: none !important;
+      display: none !important;
     }
-    .right-sticky-banner { display: none; }
+
     .region-selector-grid { grid-template-columns: repeat(3, 1fr); }
   }
 
@@ -1894,7 +2485,7 @@
     .form-grid-2 { grid-template-columns: 1fr; }
     .calc-container { flex-direction: column; align-items: stretch; }
     .calc-inputs-row { flex-direction: column; align-items: stretch; }
-    .v-nav-text { font-size: 8.5px; max-width: 54px; }
+    .v-nav-text { font-size: 9.5px; max-width: 68px; }
   }
 </style>
 </head>
@@ -1905,33 +2496,40 @@
 <canvas id="particleCanvas"></canvas>
 
 <!-- ======================================================== -->
-<!-- 1. LEFT VERTICAL NAVIGATION (THEO ĐÚNG Ý TƯỞNG ẢNH MẪU) -->
+<!-- 1. LEFT VERTICAL NAVIGATION (ĐIỀU HƯỚNG MƯỢT MÀ TẤT CẢ THIẾT BỊ) -->
 <!-- ======================================================== -->
 <nav class="left-vertical-nav" aria-label="Danh mục điều hướng">
   <div class="nav-timeline">
     
-    <a href="#sec-landing" class="v-nav-item active" data-target="sec-landing">
+    <a href="#sec-landing" class="v-nav-item active" data-target="sec-landing" onclick="scrollToSection('sec-landing', event)">
       <div class="v-nav-node"></div>
+      <div class="v-nav-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      </div>
       <span class="v-nav-text">Trang Landing</span>
     </a>
 
-    <a href="#sec-rates" class="v-nav-item" data-target="sec-rates">
+    <a href="#sec-rates" class="v-nav-item" data-target="sec-rates" onclick="scrollToSection('sec-rates', event)">
       <div class="v-nav-node"></div>
+      <div class="v-nav-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v12M15 9.5H9.5a2.5 2.5 0 0 0 0 5h5a2.5 2.5 0 0 1 0 5H8"/></svg>
+      </div>
       <span class="v-nav-text">Bảng Giá Kina</span>
     </a>
 
-    <a href="#sec-consign-booster" class="v-nav-item" data-target="sec-consign-booster">
+    <a href="#sec-consign-booster" class="v-nav-item" data-target="sec-consign-booster" onclick="scrollToSection('sec-consign-booster', event)">
       <div class="v-nav-node"></div>
+      <div class="v-nav-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+      </div>
       <span class="v-nav-text">Ký Gửi &amp; Booster</span>
     </a>
 
-    <a href="#sec-community" class="v-nav-item" data-target="sec-community">
+    <a href="#sec-news-support" class="v-nav-item" data-target="sec-news-support" onclick="scrollToSection('sec-news-support', event)">
       <div class="v-nav-node"></div>
-      <span class="v-nav-text">Giang Hồ Cộng Đồng</span>
-    </a>
-
-    <a href="#sec-news-support" class="v-nav-item" data-target="sec-news-support">
-      <div class="v-nav-node"></div>
+      <div class="v-nav-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+      </div>
       <span class="v-nav-text">Tin Tức &amp; Hỗ Trợ</span>
     </a>
 
@@ -1939,34 +2537,17 @@
 </nav>
 
 <!-- ======================================================== -->
-<!-- 2. RIGHT STICKY ACTION WIDGET (NHƯ BANNER PHẢI ẢNH MẪU) -->
+<!-- 2. NÚT NỔI HÌNH CÁO & POPUP TIỆN ÍCH DẠNG DỌC (KHÔNG QR) -->
 <!-- ======================================================== -->
-<aside class="right-sticky-banner">
-  <div class="right-sticky-avatar">
+<div class="gege-fox-float-btn" id="gegeFoxFloatBtn" onclick="toggleFoxPopup()" title="Bấm mở Menu & Kênh Cộng Đồng">
+  <div class="gff-avatar">
     <img src="logo.gif" alt="GeGe Mascot">
   </div>
-  
-  <a href="#sec-rates" class="right-btn-item cta-gold" title="Xem tỷ giá Kina">
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M12 6v12M15 9.5H9.5a2.5 2.5 0 000 5h5a2.5 2.5 0 010 5H8"/></svg>
-    <span>BẢNG GIÁ</span>
-  </a>
-
-  <a href="#sec-consign-booster" class="right-btn-item" title="Tra cứu mã ký gửi">
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-    <span>TRA CỨU</span>
-  </a>
-
-  <a href="https://zalo.me/0936854505" target="_blank" rel="noopener" class="right-btn-item" style="background:#0284c7;" title="Liên hệ Zalo Admin">
-    <span>ZALO AD</span>
-  </a>
-
-  <div class="right-qr-thumb" onclick="openQR('Zalo Admin GeGe Team', 'https://zalo.me/0936854505')" title="Bấm xem mã QR Zalo">
-    <img src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=https%3A%2F%2Fzalo.me%2F0936854505" alt="QR Code">
-  </div>
-</aside>
+  <span class="gff-badge">Menu</span>
+</div>
 
 <!-- ======================================================== -->
-<!-- 3. MAIN WRAPPER (CHỨA CÁC MỤC THEO THỨ TỰ YÊU CẦU)       -->
+<!-- 3. MAIN WRAPPER                                          -->
 <!-- ======================================================== -->
 <div class="main-wrapper">
 
@@ -1984,26 +2565,20 @@
     <h1 class="brand-hero-title">GeGe Team</h1>
     <div class="brand-hero-sub">Hệ Thống Tra Cứu Tỷ Giá Kina AION, Ký Gửi &amp; Booster Game Thủ Uy Tín 24/7</div>
 
-    <div class="hero-pills">
-      <span class="pill-tag"><span class="dot"></span> 5 Khu Vực: Asia · EU · NA · SA</span>
-      <span class="pill-tag gold"><span class="dot"></span> 116 Server Cập Nhật Real-time</span>
-      <span class="pill-tag"><span class="dot"></span> Bảo Hiểm Giao Dịch 100%</span>
-    </div>
-
     <div class="hero-cta-group">
-      <a href="#sec-rates" class="btn-hero-primary">
+      <a href="#sec-rates" class="btn-hero-orange" onclick="scrollToSection('sec-rates', event)">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M12 6v12M15 9.5H9.5a2.5 2.5 0 000 5h5a2.5 2.5 0 010 5H8"/></svg>
         <span>Tra Cứu Bảng Giá Kina</span>
       </a>
 
-      <a href="#sec-consign-booster" class="btn-hero-secondary">
+      <a href="#sec-consign-booster" class="btn-hero-purple" onclick="scrollToSection('sec-consign-booster', event)">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/></svg>
         <span>Ký Gửi &amp; Booster</span>
       </a>
 
-      <a href="#sec-community" class="btn-hero-secondary">
+      <a href="https://zalo.me/g/kmxfzujpa7akgrijn5hk" target="_blank" rel="noopener" class="btn-hero-blue">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
-        <span>Vào Nhóm Zalo</span>
+        <span>Nhóm Zalo AION 2</span>
       </a>
     </div>
   </section>
@@ -2305,166 +2880,201 @@
 
       </div>
 
-      <!-- SUB PANEL 2: CÁC GÓI BOOSTER (SẴN SÀNG CHO USER UPDATE) -->
+      <!-- SUB PANEL 2: CÁC GÓI BOOSTER AION 2 GLOBAL (THEO POSTER) -->
       <div class="booster-sub-panel" id="panelBoosterWrap">
-        <div style="background:rgba(234, 179, 8, 0.1); border:1px solid rgba(234, 179, 8, 0.3); border-radius:12px; padding:12px 16px; font-size:13px; color:#fef08a;">
-          ⚡ <b>Danh mục Booster:</b> Các gói dịch vụ hỗ trợ game thủ đang trong quá trình chuẩn bị cập nhật chi tiết. Quý khách có nhu cầu đặt trước vui lòng liên hệ Zalo Admin để được tư vấn giá tốt nhất!
-        </div>
-
-        <div class="booster-cards-grid">
-          <!-- BOOSTER CARD 1 -->
-          <div class="booster-card">
-            <span class="bc-tag">HOT NHẤT</span>
-            <div>
-              <div class="bc-title">Gói Leveling Cấp Tốc</div>
-              <div class="bc-desc" style="margin-top:4px;">Hỗ trợ cày cấp từ Level 1 lên Level 50 trong thời gian nhanh nhất, mở full nhiệm vụ cốt truyện.</div>
-            </div>
-            <ul class="bc-features">
-              <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg> Cày tay 100% không dùng bot/hack</li>
-              <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg> Giữ nguyên toàn bộ vật phẩm rơi ra</li>
-              <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg> Báo cáo tiến độ qua Zalo hàng ngày</li>
-            </ul>
-            <div class="bc-price-box">
-              <span class="bc-price-lbl">Giá gói:</span>
-              <span class="bc-price-val" style="color:var(--gold-1);">Liên Hệ Admin</span>
-            </div>
-            <a href="https://zalo.me/0936854505?text=Toi%20muon%20tu%20van%20Goi%20Leveling%20Cap%20Toc" target="_blank" rel="noopener" class="btn-hero-primary" style="text-align:center; justify-content:center; padding:10px;">Đăng Ký Gói Này</a>
-          </div>
-
-          <!-- BOOSTER CARD 2 -->
-          <div class="booster-card">
-            <span class="bc-tag" style="background:rgba(34, 197, 94, 0.2); border-color:#22c55e; color:#86efac;">TIẾT KIỆM</span>
-            <div>
-              <div class="bc-title">Gói Cày Kina Tuần (Weekly)</div>
-              <div class="bc-desc" style="margin-top:4px;">Chạy Dungeon, Farm bí cảnh và chế đồ tích lũy Kina theo định mức cam kết từng tuần.</div>
-            </div>
-            <ul class="bc-features">
-              <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg> Cam kết định mức Kina đạt chuẩn</li>
-              <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg> Đội ngũ pro-player nhiều kinh nghiệm</li>
-              <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg> Bảo hiểm đền bù 100% nếu có rủi ro</li>
-            </ul>
-            <div class="bc-price-box">
-              <span class="bc-price-lbl">Giá gói:</span>
-              <span class="bc-price-val" style="color:var(--gold-1);">Liên Hệ Admin</span>
-            </div>
-            <a href="https://zalo.me/0936854505?text=Toi%20muon%20tu%20van%20Goi%20Cay%20Kina%20Tuan" target="_blank" rel="noopener" class="btn-hero-primary" style="text-align:center; justify-content:center; padding:10px;">Đăng Ký Gói Này</a>
-          </div>
-
-          <!-- BOOSTER CARD 3 -->
-          <div class="booster-card">
-            <span class="bc-tag" style="background:rgba(157, 92, 255, 0.2); border-color:#9d5cff; color:#d8b4fe;">VIP PRO</span>
-            <div>
-              <div class="bc-title">Gói Săn Boss &amp; Set Đồ PvP</div>
-              <div class="bc-desc" style="margin-top:4px;">Dắt slot đi phụ bản Abyss, săn Boss thế giới và cày điểm danh dự Abyss Point đổi set PvP.</div>
-            </div>
-            <ul class="bc-features">
-              <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg> Party top server kéo trực tiếp</li>
-              <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg> Hỗ trợ build ngọc, tẩy op chuẩn bài</li>
-              <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg> Voice Discord hướng dẫn trực tiếp</li>
-            </ul>
-            <div class="bc-price-box">
-              <span class="bc-price-lbl">Giá gói:</span>
-              <span class="bc-price-val" style="color:var(--gold-1);">Liên Hệ Admin</span>
-            </div>
-            <a href="https://zalo.me/0936854505?text=Toi%20muon%20tu%20van%20Goi%20San%20Boss%20PvP" target="_blank" rel="noopener" class="btn-hero-primary" style="text-align:center; justify-content:center; padding:10px;">Đăng Ký Gói Này</a>
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- ========================================== -->
-  <!-- MỤC 4: MỤC CỘNG ĐỒNG (GIANG HỒ CỘNG ĐỒNG)  -->
-  <!-- ========================================== -->
-  <section class="content-section" id="sec-community">
-    <div class="sec-glass-box">
-
-      <div class="sec-heading-row">
-        <div class="sec-heading-left">
-          <div class="sec-header-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
-          </div>
+        
+        <!-- HEADER BANNER DỊCH VỤ -->
+        <div class="booster-header-banner">
           <div>
-            <h2 class="sec-title-main">Kênh Cộng Đồng &amp; Mạng Xã Hội</h2>
-            <div class="sec-desc-main">Tham gia hệ thống các nhóm thảo luận, cập nhật thông báo khẩn và giao lưu Atreia</div>
+            <div class="bhb-title">AION 2 <span>GLOBAL SERVICE / BOOSTING</span> [ GEGE TEAM ]</div>
+            <div class="bhb-sub">Bảng giá cày thuê, đi phó bản &amp; chăm sóc tài khoản chuyên nghiệp hàng đầu</div>
           </div>
-        </div>
-      </div>
-
-      <div class="community-cards-list">
-
-        <!-- NHÓM ZALO AION 2 -->
-        <div class="comm-item" style="--icon-bg: linear-gradient(145deg, #2b95ff, #0056cf);">
-          <div class="comm-icon">
-            <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5.5" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="1.2"/><text x="12" y="15.8" text-anchor="middle" font-family="'Plus Jakarta Sans',Arial,sans-serif" font-weight="900" font-size="8.8" fill="#fff">Zalo</text></svg>
-          </div>
-          <div class="comm-info">
-            <div class="comm-title">
-              <span>Nhóm Zalo AION 2</span>
-              <span class="comm-tag" style="background:rgba(34,197,94,0.18); color:#4ade80;">● Đang Hoạt Động</span>
-            </div>
-            <div class="comm-desc">Cập nhật tin tức nhanh nhất, tỷ giá Kina hàng giờ &amp; thông báo khẩn trong ngày</div>
-          </div>
-          <div class="comm-actions">
-            <button class="action-icon-btn" onclick="openQR('Nhóm Zalo AION 2', 'https://zalo.me/g/kmxfzujpa7akgrijn5hk')" title="Xem mã QR"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg></button>
-            <button class="action-icon-btn" onclick="copyText('https://zalo.me/g/kmxfzujpa7akgrijn5hk', 'Link Zalo')" title="Sao chép link"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg></button>
-            <a class="action-icon-btn" href="https://zalo.me/g/kmxfzujpa7akgrijn5hk" target="_blank" rel="noopener" style="background:#0284c7; color:#fff;" title="Vào nhóm"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M9 7h8v8"/></svg></a>
+          <div class="bhb-contacts">
+            <a href="https://zalo.me/0936854505" target="_blank" rel="noopener" class="bhb-contact-chip" style="background:#0284c7; border-color:#38bdf8;">
+              <span>📞 Zalo: <b>0936 854 505</b></span>
+            </a>
+            <span class="bhb-contact-chip" style="background:#5865f2; border-color:#818cf8;">
+              <span>💬 Discord: <b>gege.team</b></span>
+            </span>
+            <button class="bhb-contact-chip" onclick="openPosterModal()" style="background:rgba(255,152,56,0.2); border-color:var(--gold-1); color:var(--gold-1); cursor:pointer;">
+              <span>📸 Xem Bảng Giá Gốc</span>
+            </button>
           </div>
         </div>
 
-        <!-- FANPAGE GEGETEAM -->
-        <div class="comm-item" style="--icon-bg: linear-gradient(145deg, #3b8bff, #0d59c9);">
-          <div class="comm-icon">
-            <svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
-          </div>
-          <div class="comm-info">
-            <div class="comm-title">
-              <span>Fanpage GegeTeam</span>
-              <span class="comm-tag">Chính Thức</span>
+        <!-- 2 GÓI FULL COMBO NỔI BẬT NHẤT -->
+        <div class="booster-combos-grid">
+          
+          <!-- COMBO 1 PHẾ -->
+          <div class="combo-card combo-standard">
+            <div>
+              <div class="combo-header">
+                <div class="combo-title">FULL COMBO 1 PHẾ</div>
+                <span class="combo-badge cyan">Phổ Biến</span>
+              </div>
+              <ul class="combo-features">
+                <li><span class="check-icon">✓</span> <span><b>Leveling 1 -> 45</b> thần tốc</span></li>
+                <li><span class="check-icon">✓</span> <span><b>Full nhiệm vụ xanh</b> cốt truyện</span></li>
+                <li><span class="check-icon">✓</span> <span><b>Stronghold</b> thành trì</span></li>
+                <li><span class="check-icon">✓</span> <span><b>Full lông thường</b> trang bị</span></li>
+                <li><span class="check-icon">✓</span> <span><b>Spacetime Rift</b> vết nứt không gian</span></li>
+              </ul>
             </div>
-            <div class="comm-desc">Cập nhật tin tức, trailer, sự kiện giveaway &amp; bảng giá thu mua sớm nhất</div>
+            <div class="combo-footer">
+              <div>
+                <div style="font-size:11px; color:#94a3b8; font-weight:700;">Trọn gói:</div>
+                <div class="combo-price-val">650k</div>
+              </div>
+              <a href="https://zalo.me/0936854505?text=Toi%20muon%20dat%20goi%20FULL%20COMBO%201%20PHE%20(650k)%20AION%202" target="_blank" rel="noopener" class="combo-btn">
+                <span>Đăng Ký 650k</span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+              </a>
+            </div>
           </div>
-          <div class="comm-actions">
-            <button class="action-icon-btn" onclick="openQR('Fanpage GegeTeam', 'https://www.facebook.com/GegeTeam.net/')" title="Xem mã QR"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg></button>
-            <button class="action-icon-btn" onclick="copyText('https://www.facebook.com/GegeTeam.net/', 'Link Fanpage')" title="Sao chép link"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg></button>
-            <a class="action-icon-btn" href="https://www.facebook.com/GegeTeam.net/" target="_blank" rel="noopener" style="background:#1d4ed8; color:#fff;" title="Mở trang"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M9 7h8v8"/></svg></a>
+
+          <!-- COMBO 2 PHẾ VIP -->
+          <div class="combo-card combo-vip">
+            <div>
+              <div class="combo-header">
+                <div class="combo-title">FULL COMBO 2 PHẾ VIP</div>
+                <span class="combo-badge gold">⭐ Siêu VIP</span>
+              </div>
+              <ul class="combo-features">
+                <li><span class="check-icon">✓</span> <span><b>Leveling 1 -> 45</b> thần tốc</span></li>
+                <li><span class="check-icon">✓</span> <span><b>Full nhiệm vụ xanh</b> cốt truyện</span></li>
+                <li><span class="check-icon">✓</span> <span><b>Stronghold</b> thành trì</span></li>
+                <li><span class="check-icon">✓</span> <span><b>Full lông thường + Abyss</b> cao cấp</span></li>
+                <li><span class="check-icon">✓</span> <span><b>Spacetime Rift</b> vết nứt không gian</span></li>
+              </ul>
+            </div>
+            <div class="combo-footer">
+              <div>
+                <div style="font-size:11px; color:#fed7aa; font-weight:700;">Trọn gói VIP:</div>
+                <div class="combo-price-val">850k</div>
+              </div>
+              <a href="https://zalo.me/0936854505?text=Toi%20muon%20dat%20goi%20FULL%20COMBO%202%20PHE%20VIP%20(850k)%20AION%202" target="_blank" rel="noopener" class="combo-btn">
+                <span>Đăng Ký 850k</span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+              </a>
+            </div>
           </div>
+
         </div>
 
-        <!-- GROUP FACEBOOK -->
-        <div class="comm-item" style="--icon-bg: linear-gradient(145deg, #2f82f7, #094ca3);">
-          <div class="comm-icon">
-            <svg viewBox="0 0 24 24"><path d="M16 11c1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3 1.34 3 3 3zm-8 0c1.66 0 3-1.34 3-3S9.66 5 8 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
+        <!-- BẢNG GIÁ DỊCH VỤ LẺ CHI TIẾT (7 MỤC CHÍNH XÁC THEO ẢNH) -->
+        <div class="booster-single-panel">
+          <div class="bsp-title-row">
+            <div class="bsp-title">⚔️ Bảng Giá Từng Dịch Vụ Lẻ (AION 2 Service)</div>
+            <div style="font-size:12px; color:var(--text-muted);">Cam kết cày tay 100% · Bảo hiểm acc an toàn</div>
           </div>
-          <div class="comm-info">
-            <div class="comm-title">
-              <span>AION 2 Nhà Cáo - GegeTeam</span>
-              <span class="comm-tag">Cộng Đồng</span>
-            </div>
-            <div class="comm-desc">Giao lưu hỏi đáp kinh nghiệm, mua bán ký gửi Kina &amp; tuyển thành viên Legion</div>
-          </div>
-          <div class="comm-actions">
-            <button class="action-icon-btn" onclick="openQR('Group Facebook AION 2', 'https://www.facebook.com/groups/457999664580741')" title="Xem mã QR"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg></button>
-            <button class="action-icon-btn" onclick="copyText('https://www.facebook.com/groups/457999664580741', 'Link Group')" title="Sao chép link"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg></button>
-            <a class="action-icon-btn" href="https://www.facebook.com/groups/457999664580741" target="_blank" rel="noopener" style="background:#2563eb; color:#fff;" title="Vào nhóm"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M9 7h8v8"/></svg></a>
-          </div>
-        </div>
 
-        <!-- DISCORD SERVER -->
-        <div class="comm-item" style="--icon-bg: linear-gradient(145deg, #7c86ff, #4752e6);">
-          <div class="comm-icon">
-            <svg viewBox="0 0 24 24"><path d="M20.317 4.37a19.79 19.79 0 00-4.885-1.515.074.074 0 00-.079.037c-.21.375-.444.865-.608 1.25a18.27 18.27 0 00-5.487 0 12.64 12.64 0 00-.617-1.25.077.077 0 00-.079-.037A19.736 19.736 0 003.677 4.37a.07.07 0 00-.032.027C.533 9.046-.32 13.58.099 18.058a.082.082 0 00.031.056 19.9 19.9 0 005.993 3.03.078.078 0 00.084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 00-.041-.106 13.107 13.107 0 01-1.872-.892.077.077 0 01-.008-.128c.126-.094.252-.192.372-.291a.074.074 0 01.078-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 01.078.009c.12.099.246.198.373.292a.077.077 0 01-.006.128 12.3 12.3 0 01-1.873.891.077.077 0 00-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 00.084.028 19.84 19.84 0 006.002-3.03.077.077 0 00.032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 00-.031-.029zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/></svg>
-          </div>
-          <div class="comm-info">
-            <div class="comm-title">
-              <span>Discord Server</span>
-              <span class="comm-tag" style="background:rgba(234,179,8,0.18); color:#fde047;">Sắp Ra Mắt</span>
+          <div class="booster-services-grid">
+            
+            <!-- 1. Leveling -->
+            <div class="bs-item">
+              <div class="bsi-left">
+                <div class="bsi-icon">🏃</div>
+                <div>
+                  <div class="bsi-name">Leveling 1 -> 45</div>
+                  <div class="bsi-sub">Cày cấp tốc nhân vật lên 45 thần tốc</div>
+                </div>
+              </div>
+              <div class="bsi-right">
+                <div class="bsi-price">350k</div>
+                <a href="https://zalo.me/0936854505?text=Toi%20muon%20dat%20Leveling%201-45%20(350k)" target="_blank" rel="noopener" class="bsi-action">Đặt ngay</a>
+              </div>
             </div>
-            <div class="comm-desc">Kênh thoại Voice Chat đi chiến trường Abyss, săn World Boss &amp; hỗ trợ kỹ thuật</div>
-          </div>
-          <div class="comm-actions">
-            <span style="font-size:11px; font-weight:700; color:#fde047; padding:6px 12px; background:rgba(234,179,8,0.12); border-radius:8px;">Sắp Mở</span>
+
+            <!-- 2. Sealed Dungeon + Stronghold -->
+            <div class="bs-item">
+              <div class="bsi-left">
+                <div class="bsi-icon">🏛️</div>
+                <div>
+                  <div class="bsi-name">Sealed Dungeon + Stronghold</div>
+                  <div class="bsi-sub">Phụ bản phong ấn &amp; vượt ải thành trì</div>
+                </div>
+              </div>
+              <div class="bsi-right">
+                <div class="bsi-price">220k</div>
+                <a href="https://zalo.me/0936854505?text=Toi%20muon%20dat%20Sealed%20Dungeon%20Stronghold%20(220k)" target="_blank" rel="noopener" class="bsi-action">Đặt ngay</a>
+              </div>
+            </div>
+
+            <!-- 3. Full Spacetime Rift -->
+            <div class="bs-item">
+              <div class="bsi-left">
+                <div class="bsi-icon">🌀</div>
+                <div>
+                  <div class="bsi-name">Full Spacetime Rift</div>
+                  <div class="bsi-sub">Toàn bộ vết nứt thời không quý hiếm</div>
+                </div>
+              </div>
+              <div class="bsi-right">
+                <div class="bsi-price">320k</div>
+                <a href="https://zalo.me/0936854505?text=Toi%20muon%20dat%20Full%20Spacetime%20Rift%20(320k)" target="_blank" rel="noopener" class="bsi-action">Đặt ngay</a>
+              </div>
+            </div>
+
+            <!-- 4. Full Lông Thường / Lông Abyss -->
+            <div class="bs-item">
+              <div class="bsi-left">
+                <div class="bsi-icon">🪶</div>
+                <div>
+                  <div class="bsi-name">Full Lông Thường / Lông Abyss</div>
+                  <div class="bsi-sub">Trọn bộ lông nâng cánh &amp; trang bị</div>
+                </div>
+              </div>
+              <div class="bsi-right">
+                <div class="bsi-price">50k</div>
+                <a href="https://zalo.me/0936854505?text=Toi%20muon%20dat%20Full%20Long%20Thuong%20Abyss%20(50k)" target="_blank" rel="noopener" class="bsi-action">Đặt ngay</a>
+              </div>
+            </div>
+
+            <!-- 5. Farm Pet -->
+            <div class="bs-item">
+              <div class="bsi-left">
+                <div class="bsi-icon">🐾</div>
+                <div>
+                  <div class="bsi-name">Farm Pet</div>
+                  <div class="bsi-sub">Treo farm pet theo giờ chuyên nghiệp</div>
+                </div>
+              </div>
+              <div class="bsi-right">
+                <div class="bsi-price">50k - 60k/h</div>
+                <a href="https://zalo.me/0936854505?text=Toi%20muon%20dat%20Farm%20Pet%20(50k-60k/h)" target="_blank" rel="noopener" class="bsi-action">Đặt ngay</a>
+              </div>
+            </div>
+
+            <!-- 6. Daily Quest Abyss -->
+            <div class="bs-item">
+              <div class="bsi-left">
+                <div class="bsi-icon">📜</div>
+                <div>
+                  <div class="bsi-name">Daily Quest Abyss</div>
+                  <div class="bsi-sub">Nhiệm vụ hàng ngày chiến trường Abyss</div>
+                </div>
+              </div>
+              <div class="bsi-right">
+                <div class="bsi-price">50k - 60k</div>
+                <a href="https://zalo.me/0936854505?text=Toi%20muon%20dat%20Daily%20Quest%20Abyss%20(50k-60k)" target="_blank" rel="noopener" class="bsi-action">Đặt ngay</a>
+              </div>
+            </div>
+
+            <!-- 7. Chăm acc, up lực chiến -->
+            <div class="bs-item" style="grid-column: 1 / -1;">
+              <div class="bsi-left">
+                <div class="bsi-icon">🛡️</div>
+                <div>
+                  <div class="bsi-name">Chăm acc, up lực chiến</div>
+                  <div class="bsi-sub">Tối ưu build ngọc, tẩy op trang bị, set kỹ năng kéo lực chiến tối đa</div>
+                </div>
+              </div>
+              <div class="bsi-right">
+                <div class="bsi-price" style="font-size:13.5px;">Nhắn để biết thêm</div>
+                <a href="https://zalo.me/0936854505?text=Toi%20muon%20tu%20van%20Cham%20acc%20up%20luc%20chien" target="_blank" rel="noopener" class="bsi-action" style="background:var(--gold-1); color:#080a11;">Tư vấn Zalo</a>
+              </div>
+            </div>
+
           </div>
         </div>
 
@@ -2606,6 +3216,116 @@
     Bảng Giá Kina · Ký Gửi Đồ · Booster Cày Cấp Uy Tín Hàng Đầu
   </footer>
 
+</div>
+
+<!-- POSTER LIGHTBOX MODAL (XEM BẢNG GIÁ GỐC) -->
+<div class="poster-modal" id="posterModal">
+  <div class="poster-modal-backdrop" onclick="closePosterModal()"></div>
+  <div class="poster-modal-content">
+    <button class="poster-modal-close" onclick="closePosterModal()">✕</button>
+    <img src="booster-poster.png" alt="AION 2 Service Boosting GeGe Team">
+  </div>
+</div>
+
+<!-- ======================================================== -->
+<!-- POPUP MODAL TIỆN ÍCH DẠNG DỌC (HOÀN TOÀN KHÔNG CÓ MÃ QR)   -->
+<!-- ======================================================== -->
+<div class="gege-fox-modal" id="gegeFoxModal">
+  <div class="gfm-backdrop" onclick="toggleFoxPopup()"></div>
+  <div class="gfm-card">
+    <button class="gfm-close" onclick="toggleFoxPopup()" aria-label="Đóng popup">✕</button>
+
+    <!-- HEADER POPUP -->
+    <div class="gfm-header">
+      <div class="gfm-avatar-wrap">
+        <img src="logo.gif" alt="GeGe Mascot">
+      </div>
+      <div class="gfm-brand-info">
+        <div class="gfm-title">GeGe Team</div>
+        <div class="gfm-sub">Hệ Sinh Thái Nhà Cáo AION 2 Uy Tín 24/7</div>
+      </div>
+    </div>
+
+    <!-- DẠNG DỌC: CÁC NÚT ĐIỀU HƯỚNG CHÍNH -->
+    <div class="gfm-actions-vertical">
+      <a href="#sec-rates" class="gfm-row-btn gfm-btn-orange" onclick="toggleFoxPopup(); scrollToSection('sec-rates', event)">
+        <div class="gfm-row-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M12 6v12M15 9.5H9.5a2.5 2.5 0 000 5h5a2.5 2.5 0 010 5H8"/></svg>
+        </div>
+        <div class="gfm-row-text">
+          <span class="gfm-row-title">BẢNG GIÁ KINA</span>
+          <span class="gfm-row-desc">Tỷ giá 116 Server cập nhật Real-time</span>
+        </div>
+        <span class="gfm-row-arrow">➔</span>
+      </a>
+
+      <a href="#sec-consign-booster" class="gfm-row-btn gfm-btn-purple" onclick="toggleFoxPopup(); scrollToSection('sec-consign-booster', event)">
+        <div class="gfm-row-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+        </div>
+        <div class="gfm-row-text">
+          <span class="gfm-row-title">KÝ GỬI &amp; BOOSTER</span>
+          <span class="gfm-row-desc">Tra cứu đơn ký gửi · Các gói cày cấp AION 2</span>
+        </div>
+        <span class="gfm-row-arrow">➔</span>
+      </a>
+
+      <a href="https://zalo.me/0936854505" target="_blank" rel="noopener" class="gfm-row-btn gfm-btn-blue">
+        <div class="gfm-row-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg>
+        </div>
+        <div class="gfm-row-text">
+          <span class="gfm-row-title">ZALO ADMIN (0936 854 505)</span>
+          <span class="gfm-row-desc">Hỗ trợ giao dịch &amp; bảo hiểm 100% 24/7</span>
+        </div>
+        <span class="gfm-row-arrow">➔</span>
+      </a>
+    </div>
+
+    <!-- DẠNG DỌC: KÊNH CỘNG ĐỒNG NHÀ CÁO -->
+    <div class="gfm-section-label">
+      <span>Kênh Cộng Đồng Nhà Cáo</span>
+    </div>
+
+    <div class="gfm-channels-vertical">
+      <a href="https://zalo.me/g/kmxfzujpa7akgrijn5hk" target="_blank" rel="noopener" class="gfm-channel-item">
+        <div class="gci-badge z-badge">Zalo</div>
+        <div class="gci-info">
+          <div class="gci-title">Nhóm Zalo AION 2</div>
+          <div class="gci-desc">Giao lưu buôn bán Kina &amp; tài khoản</div>
+        </div>
+        <div class="gci-btn">Tham gia</div>
+      </a>
+
+      <a href="https://www.facebook.com/GegeTeam.net/" target="_blank" rel="noopener" class="gfm-channel-item">
+        <div class="gci-badge fb-badge">FB</div>
+        <div class="gci-info">
+          <div class="gci-title">Fanpage GeGe Team</div>
+          <div class="gci-desc">Tin tức cập nhật sự kiện &amp; sự kiện game</div>
+        </div>
+        <div class="gci-btn">Theo dõi</div>
+      </a>
+
+      <a href="https://www.facebook.com/groups/457999664580741" target="_blank" rel="noopener" class="gfm-channel-item">
+        <div class="gci-badge grp-badge">Grp</div>
+        <div class="gci-info">
+          <div class="gci-title">Group Facebook Nhà Cáo</div>
+          <div class="gci-desc">Diễn đàn thảo luận game thủ AION</div>
+        </div>
+        <div class="gci-btn">Vào nhóm</div>
+      </a>
+
+      <a href="https://discord.gg" target="_blank" rel="noopener" class="gfm-channel-item">
+        <div class="gci-badge dc-badge">DC</div>
+        <div class="gci-info">
+          <div class="gci-title">Discord gege.team</div>
+          <div class="gci-desc">Voice chat săn Boss &amp; Guild War</div>
+        </div>
+        <div class="gci-btn">Kết nối</div>
+      </a>
+    </div>
+
+  </div>
 </div>
 
 <!-- QR MODAL POPUP -->
@@ -3248,17 +3968,18 @@ function toggleFaq(el) {
   window.addEventListener('resize', resize);
   resize();
 
-  const colors = ['#67e8ff', '#ffd984', '#9d5cff', '#22c55e', '#ffffff'];
+  // Fox Orange warm aether particles (Tối giản, nhẹ nhàng)
+  const colors = ['#ff9838', '#ea580c', '#fbbf24', '#f97316', '#ffffff'];
 
-  for (let i = 0; i < 45; i++) {
+  for (let i = 0; i < 28; i++) {
     particles.push({
       x: Math.random() * width,
       y: Math.random() * height,
-      r: Math.random() * 2 + 0.6,
+      r: Math.random() * 1.8 + 0.6,
       color: colors[Math.floor(Math.random() * colors.length)],
-      vx: (Math.random() - 0.5) * 0.35,
-      vy: -Math.random() * 0.5 - 0.2,
-      alpha: Math.random() * 0.6 + 0.2,
+      vx: (Math.random() - 0.5) * 0.3,
+      vy: -Math.random() * 0.4 - 0.15,
+      alpha: Math.random() * 0.5 + 0.2,
       pulseSpeed: Math.random() * 0.02 + 0.01
     });
   }
@@ -3279,8 +4000,8 @@ function toggleFaq(el) {
       ctx.beginPath();
       ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
       ctx.fillStyle = p.color;
-      ctx.globalAlpha = Math.max(0.1, Math.min(0.85, p.alpha));
-      ctx.shadowBlur = 8;
+      ctx.globalAlpha = Math.max(0.1, Math.min(0.8, p.alpha));
+      ctx.shadowBlur = 6;
       ctx.shadowColor = p.color;
       ctx.fill();
       ctx.restore();
@@ -3291,8 +4012,56 @@ function toggleFaq(el) {
 })();
 
 // ==========================================
-// 8. TIỆN ÍCH QR & TOAST
+// 8. TIỆN ÍCH POPUP, ĐIỀU HƯỚNG MƯỢT MÀ & TOAST
 // ==========================================
+function openPosterModal() {
+  document.getElementById('posterModal').classList.add('show');
+}
+
+function closePosterModal() {
+  document.getElementById('posterModal').classList.remove('show');
+}
+
+function toggleFoxPopup() {
+  const modal = document.getElementById('gegeFoxModal');
+  if (modal) modal.classList.toggle('show');
+}
+
+function closeFoxPopup() {
+  const modal = document.getElementById('gegeFoxModal');
+  if (modal) modal.classList.remove('show');
+}
+
+function scrollToSection(targetId, event) {
+  if (event) {
+    event.preventDefault();
+  }
+  const el = document.getElementById(targetId);
+  if (!el) return;
+
+  const headerOffset = 25;
+  const elementPosition = el.getBoundingClientRect().top;
+  const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+  window.scrollTo({
+    top: offsetPosition,
+    behavior: "smooth"
+  });
+
+  // Cập nhật trạng thái active ngay trên thanh điều hướng
+  document.querySelectorAll('.v-nav-item').forEach(item => {
+    if (item.getAttribute('data-target') === targetId) {
+      item.classList.add('active');
+    } else {
+      item.classList.remove('active');
+    }
+  });
+
+  try {
+    history.pushState(null, '', '#' + targetId);
+  } catch(err) {}
+}
+
 function openQR(title, url) {
   document.getElementById('modalQrTitle').innerText = title;
   document.getElementById('modalQrOpenBtn').href = url;
@@ -3300,7 +4069,7 @@ function openQR(title, url) {
   qrBox.innerHTML = '';
 
   if (window.QRCode) {
-    new QRCode(qrBox, { text: url, width: 170, height: 170, colorDark: '#050a18', colorLight: '#ffffff' });
+    new QRCode(qrBox, { text: url, width: 170, height: 170, colorDark: '#080a11', colorLight: '#ffffff' });
   } else {
     const img = document.createElement('img');
     img.src = `https://api.qrserver.com/v1/create-qr-code/?size=170x170&data=${encodeURIComponent(url)}`;
@@ -3336,6 +4105,18 @@ document.addEventListener('DOMContentLoaded', () => {
   renderFullSpreadsheet();
   populateCalcDropdown();
   syncServerOptions('Asia');
+
+  // Gán bộ cuộn mượt tự nhiên cho toàn bộ anchor nội bộ
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+      const targetId = this.getAttribute('href').slice(1);
+      if (targetId && document.getElementById(targetId)) {
+        e.preventDefault();
+        closeFoxPopup();
+        scrollToSection(targetId);
+      }
+    });
+  });
 });
 </script>
 </body>

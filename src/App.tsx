@@ -615,7 +615,7 @@ function App() {
                               key={`r1-${item.server}`}
                               className={`${item.rate === null ? 'cell-na' : 'cell-clickable'} ${search.trim() && item.server.toLowerCase().includes(search.toLowerCase()) ? 'cell-highlighted' : ''}`.trim()}
                               onClick={() => onSelectServerForCalc(currentRegionData.code, item.server, item.rate)}
-                              title={item.rate !== null ? `🔥 Nhấp để bán ngay server ${item.server} (Tỷ giá ${item.rate}k/M)` : 'Chưa có tỷ giá'}
+                              title={item.rate !== null ? `🔥 Nhấp để ký gửi ngay server ${item.server} (Tỷ giá ${item.rate})` : 'Chưa có tỷ giá'}
                             >
                               {item.rate !== null ? (
                                 <span className="rate-num-val">
@@ -638,7 +638,7 @@ function App() {
                               key={`r2-${item.server}`}
                               className={`${item.rate === null ? 'cell-na' : 'cell-clickable'} ${search.trim() && item.server.toLowerCase().includes(search.toLowerCase()) ? 'cell-highlighted' : ''}`.trim()}
                               onClick={() => onSelectServerForCalc(currentRegionData.code, item.server, item.rate)}
-                              title={item.rate !== null ? `🔥 Nhấp để bán ngay server ${item.server} (Tỷ giá ${item.rate}k/M)` : 'Chưa có tỷ giá'}
+                              title={item.rate !== null ? `🔥 Nhấp để ký gửi ngay server ${item.server} (Tỷ giá ${item.rate})` : 'Chưa có tỷ giá'}
                             >
                               {item.rate !== null ? (
                                 <span className="rate-num-val">
@@ -807,8 +807,8 @@ function App() {
                   <a
                     href={`https://zalo.me/0936854505?text=${encodeURIComponent(
                       payoutCurrency === 'USDT'
-                        ? `Chào Admin GeGe Team, mình muốn bán ${calcAmount}M Kina tại server ${selectedCalcServer.server} (${selectedCalcServer.region}), nhận thanh toán qua VÍ TIỀN SỐ USDT: ${calcTotalUSDT} USDT (Tương đương ${calcTotalVND.toLocaleString('vi-VN')} VNĐ). Nhờ Admin hỗ trợ thu mua!`
-                        : `Chào Admin GeGe Team, mình muốn bán ${calcAmount}M Kina tại server ${selectedCalcServer.server} (${selectedCalcServer.region}), số tiền ước tính ${calcTotalVND.toLocaleString('vi-VN')} VNĐ (hoặc ${calcTotalUSDT} USDT). Nhờ Admin hỗ trợ thu mua!`
+                        ? `Chào Admin GeGe Team, mình muốn ký gửi ${calcAmount}M Kina tại server ${selectedCalcServer.server} (${selectedCalcServer.region}), nhận thanh toán qua VÍ TIỀN SỐ USDT: ${calcTotalUSDT} USDT (Tương đương ${calcTotalVND.toLocaleString('vi-VN')} VNĐ). Nhờ Admin hỗ trợ!`
+                        : `Chào Admin GeGe Team, mình muốn ký gửi ${calcAmount}M Kina tại server ${selectedCalcServer.server} (${selectedCalcServer.region}), số tiền ước tính ${calcTotalVND.toLocaleString('vi-VN')} VNĐ (hoặc ${calcTotalUSDT} USDT). Nhờ Admin hỗ trợ!`
                     )}`}
                     target="_blank"
                     rel="noopener noreferrer"

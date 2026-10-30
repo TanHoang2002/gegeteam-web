@@ -11,8 +11,8 @@ export const TRANSLATIONS = {
     },
     hero: {
       eyebrow: 'GEGETEAM - NHÀ CÁO',
-      title1: 'Chơi lớn hơn.',
-      title2: 'Sống chất hơn.',
+      title1: 'ĐAM MÊ ĐỦ LỚN.',
+      title2: 'ANH EM ĐỦ CHẤT.',
       desc: 'Nơi hội tụ những chiến binh AION Việt Nam. Giao dịch an tâm, hỗ trợ tận tâm, trải nghiệm xứng tầm.',
       cta: 'Khám phá bảng giá',
       trust: 'game thủ đang tin dùng',
@@ -45,7 +45,7 @@ export const TRANSLATIONS = {
       hintClick: '💡 Nhấp vào ô tỷ giá để đưa vào Máy Tính Kina nhanh',
       noServers: 'Không tìm thấy server phù hợp trong khu vực này.',
       rateWord: 'RATE',
-      sellBtn: 'Bán Ngay',
+      sellBtn: 'Ký Gửi Ngay',
       footerNote: 'Tỷ giá cập nhật liên tục từ nguồn thị trường GeGe Team.',
       footerLink: 'Xem hướng dẫn giao dịch Kina',
     },
@@ -58,7 +58,7 @@ export const TRANSLATIONS = {
       payoutVND: '🇻🇳 VNĐ (Ngân Hàng)',
       payoutUSDT: '₮ USDT (Ví Tiền Số)',
       usdtRateHint: '1 USDT ≈ 25.800 VNĐ',
-      sellNow: 'Bán Ngay',
+      sellNow: 'Ký Gửi Ngay',
       cryptoEquiv: 'Tương đương',
     },
     services: {

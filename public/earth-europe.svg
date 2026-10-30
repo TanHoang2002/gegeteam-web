@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" width="160" height="160" fill="none">
+  <defs>
+    <filter id="euGlow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="6" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+    <radialGradient id="euOcean" cx="38%" cy="32%" r="65%">
+      <stop offset="0%" stop-color="#38bdf8" />
+      <stop offset="35%" stop-color="#0284c7" />
+      <stop offset="70%" stop-color="#03487c" />
+      <stop offset="100%" stop-color="#021f38" />
+    </radialGradient>
+    <radialGradient id="euSphereShade" cx="30%" cy="25%" r="70%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.45" />
+      <stop offset="45%" stop-color="#38bdf8" stop-opacity="0.08" />
+      <stop offset="75%" stop-color="#010e1a" stop-opacity="0.6" />
+      <stop offset="100%" stop-color="#010810" stop-opacity="0.95" />
+    </radialGradient>
+    <clipPath id="euGlobeClip">
+      <circle cx="80" cy="80" r="68" />
+    </clipPath>
+  </defs>
+
+  <circle cx="80" cy="80" r="74" fill="#0ea5e9" opacity="0.32" filter="url(#euGlow)" />
+  <circle cx="80" cy="80" r="68" fill="url(#euOcean)" />
+
+  <g clip-path="url(#euGlobeClip)" opacity="0.95">
+    <!-- Scandinavia & UK & Ireland -->
+    <path d="M 64 36 Q 74 24 85 28 Q 88 40 80 48 Q 72 44 64 36 Z" fill="#4ade80" />
+    <path d="M 52 42 Q 58 40 56 50 Q 50 52 52 42 Z" fill="#86efac" />
+    <!-- Western & Central Europe -->
+    <path d="M 60 54 Q 78 50 94 52 Q 102 62 96 74 Q 82 78 68 76 Q 58 68 60 54 Z" fill="#22c55e" />
+    <!-- Mediterranean / Italy / Greece / Spain -->
+    <path d="M 56 74 Q 68 74 66 84 Q 54 86 56 74 Z" fill="#34d399" />
+    <path d="M 76 74 Q 82 82 80 90 Q 74 88 76 74 Z" fill="#4ade80" />
+    <path d="M 88 78 Q 94 80 92 88 Q 86 86 88 78 Z" fill="#86efac" />
+    <!-- Northern Africa coast below Europe -->
+    <path d="M 45 92 Q 75 90 115 92 Q 130 115 110 135 Q 70 140 40 120 Z" fill="#eab308" opacity="0.85" />
+    <!-- Russia / Eastern border -->
+    <path d="M 98 32 Q 130 30 144 48 Q 138 68 116 66 Q 104 52 98 32 Z" fill="#22c55e" />
+    <!-- Clouds -->
+    <path d="M 40 45 Q 65 38 90 46 Q 115 52 135 48" stroke="#ffffff" stroke-width="4.5" stroke-linecap="round" opacity="0.32" />
+    <path d="M 50 82 Q 75 88 105 84" stroke="#ffffff" stroke-width="3.5" stroke-linecap="round" opacity="0.25" />
+  </g>
+
+  <circle cx="80" cy="80" r="68" fill="url(#euSphereShade)" />
+  <circle cx="80" cy="80" r="67.5" fill="none" stroke="#67e8f9" stroke-width="1.2" opacity="0.75" />
+</svg>
+

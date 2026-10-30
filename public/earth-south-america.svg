@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" width="160" height="160" fill="none">
+  <defs>
+    <filter id="saGlow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="6" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+    <radialGradient id="saOcean" cx="38%" cy="32%" r="65%">
+      <stop offset="0%" stop-color="#38bdf8" />
+      <stop offset="35%" stop-color="#0284c7" />
+      <stop offset="70%" stop-color="#03487c" />
+      <stop offset="100%" stop-color="#021f38" />
+    </radialGradient>
+    <radialGradient id="saSphereShade" cx="30%" cy="25%" r="70%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.45" />
+      <stop offset="45%" stop-color="#38bdf8" stop-opacity="0.08" />
+      <stop offset="75%" stop-color="#010e1a" stop-opacity="0.6" />
+      <stop offset="100%" stop-color="#010810" stop-opacity="0.95" />
+    </radialGradient>
+    <clipPath id="saGlobeClip">
+      <circle cx="80" cy="80" r="68" />
+    </clipPath>
+  </defs>
+
+  <circle cx="80" cy="80" r="74" fill="#0ea5e9" opacity="0.32" filter="url(#saGlow)" />
+  <circle cx="80" cy="80" r="68" fill="url(#saOcean)" />
+
+  <g clip-path="url(#saGlobeClip)" opacity="0.95">
+    <!-- South American Continent / Amazon / Brazil / Andes -->
+    <path d="M 62 44 Q 92 40 108 55 Q 120 75 110 95 Q 98 115 85 135 Q 75 145 72 135 Q 70 115 64 95 Q 58 75 56 60 Q 58 50 62 44 Z" fill="#22c55e" />
+    <!-- Amazon basin vibrant rainforest -->
+    <path d="M 68 56 Q 90 52 100 66 Q 96 82 82 85 Q 70 78 68 56 Z" fill="#15803d" />
+    <!-- Andes Mountain Ridge -->
+    <path d="M 60 52 Q 62 75 66 105 Q 72 130 74 140" stroke="#86efac" stroke-width="2.5" stroke-linecap="round" opacity="0.8" />
+    <!-- Central America link above -->
+    <path d="M 50 36 Q 58 38 60 46 Q 52 46 50 36 Z" fill="#4ade80" />
+    <!-- Clouds -->
+    <path d="M 40 50 Q 75 44 110 52 Q 130 58 140 54" stroke="#ffffff" stroke-width="4.5" stroke-linecap="round" opacity="0.32" />
+    <path d="M 50 90 Q 80 96 115 92" stroke="#ffffff" stroke-width="3.5" stroke-linecap="round" opacity="0.25" />
+  </g>
+
+  <circle cx="80" cy="80" r="68" fill="url(#saSphereShade)" />
+  <circle cx="80" cy="80" r="67.5" fill="none" stroke="#67e8f9" stroke-width="1.2" opacity="0.75" />
+</svg>
+

@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200" fill="none">
+  <defs>
+    <linearGradient id="zaloGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0080ff" />
+      <stop offset="100%" stop-color="#0052cc" />
+    </linearGradient>
+    <filter id="zaloShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="6" stdDeviation="12" flood-color="#0068ff" flood-opacity="0.5" />
+    </filter>
+  </defs>
+  <rect width="200" height="200" rx="46" fill="url(#zaloGrad)" filter="url(#zaloShadow)"/>
+  <!-- Zalo speech bubble silhouette and 'Zalo' text -->
+  <path d="M 40 85 C 40 50 68 38 100 38 C 132 38 160 50 160 85 C 160 120 132 132 100 132 C 86 132 74 128 64 122 L 44 135 L 50 114 C 44 105 40 95 40 85 Z" fill="#ffffff" opacity="0.18"/>
+  <path d="M52 64h30v7.6l-18.4 22H83V103H50v-7.6l18.4-22H52V64zm43.8 17.6c-4.2 0-7.6 3.4-7.6 7.8 0 4.4 3.4 7.8 7.6 7.8 4.2 0 7.6-3.4 7.6-7.8 0-4.4-3.4-7.8-7.6-7.8zm0 21.4c-8.4 0-14.8-6.2-14.8-13.6 0-7.4 6.4-13.6 14.8-13.6 8.4 0 14.8 6.2 14.8 13.6 0 7.4-6.4 13.6-14.8 13.6zm19.2-39h7.4v39h-7.4V64zm25 17.6c-4.2 0-7.6 3.4-7.6 7.8 0 4.4 3.4 7.8 7.6 7.8 4.2 0 7.6-3.4 7.6-7.8 0-4.4-3.4-7.8-7.6-7.8zm0 21.4c-8.4 0-14.8-6.2-14.8-13.6 0-7.4 6.4-13.6 14.8-13.6 8.4 0 14.8 6.2 14.8 13.6 0 7.4-6.4 13.6-14.8 13.6z" fill="#ffffff"/>
+</svg>
+

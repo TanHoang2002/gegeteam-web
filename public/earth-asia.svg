@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" width="160" height="160" fill="none">
+  <defs>
+    <!-- Outer Glow -->
+    <filter id="earthGlow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="6" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+    
+    <!-- Ocean Gradient -->
+    <radialGradient id="oceanGrad" cx="38%" cy="32%" r="65%">
+      <stop offset="0%" stop-color="#22d3ee" />
+      <stop offset="35%" stop-color="#0284c7" />
+      <stop offset="70%" stop-color="#03487c" />
+      <stop offset="100%" stop-color="#021f38" />
+    </radialGradient>
+
+    <!-- Sphere Shading & Atmosphere Highlight -->
+    <radialGradient id="sphereShade" cx="30%" cy="25%" r="70%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.45" />
+      <stop offset="45%" stop-color="#38bdf8" stop-opacity="0.08" />
+      <stop offset="75%" stop-color="#010e1a" stop-opacity="0.6" />
+      <stop offset="100%" stop-color="#010810" stop-opacity="0.95" />
+    </radialGradient>
+
+    <!-- Atmosphere Rim Rimlight -->
+    <linearGradient id="rimGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#38bdf8" stop-opacity="0.8" />
+      <stop offset="50%" stop-color="#06b6d4" stop-opacity="0.2" />
+      <stop offset="100%" stop-color="#082f49" stop-opacity="0" />
+    </linearGradient>
+
+    <clipPath id="globeClip">
+      <circle cx="80" cy="80" r="68" />
+    </clipPath>
+  </defs>
+
+  <!-- Atmosphere Halo Behind -->
+  <circle cx="80" cy="80" r="74" fill="#0ea5e9" opacity="0.28" filter="url(#earthGlow)" />
+  <circle cx="80" cy="80" r="70" fill="none" stroke="url(#rimGrad)" stroke-width="2.5" opacity="0.85" />
+
+  <!-- Ocean Sphere Base -->
+  <circle cx="80" cy="80" r="68" fill="url(#oceanGrad)" />
+
+  <!-- Continents (Asia / Eurasia / Australia / Pacific Islands) -->
+  <g clip-path="url(#globeClip)" opacity="0.95">
+    <!-- Russia / Northern Eurasia -->
+    <path d="M 38 28 Q 60 22 95 24 Q 130 26 142 42 Q 132 50 115 48 Q 98 46 82 50 Q 64 54 48 46 Q 36 38 38 28 Z" fill="#22c55e" opacity="0.88" />
+    <!-- East Asia / China / Korea / Japan -->
+    <path d="M 72 48 Q 88 47 104 54 Q 115 62 110 74 Q 96 82 82 80 Q 70 78 64 66 Q 66 56 72 48 Z" fill="#4ade80" />
+    <!-- Japan archipelago -->
+    <path d="M 118 52 Q 124 58 122 66 Q 116 70 114 62 Z" fill="#86efac" />
+    <!-- Southeast Asia / Indochina / Vietnam / Thailand -->
+    <path d="M 76 74 Q 85 76 86 86 Q 82 98 75 106 Q 72 100 74 90 Q 72 82 76 74 Z" fill="#34d399" />
+    <!-- India / South Asia -->
+    <path d="M 52 56 Q 66 58 68 70 Q 64 88 56 94 Q 48 84 50 70 Z" fill="#10b981" />
+    <!-- Philippines / Indonesia archipelago -->
+    <circle cx="98" cy="88" r="4" fill="#6ee7b7" />
+    <circle cx="106" cy="94" r="3.5" fill="#6ee7b7" />
+    <path d="M 82 108 Q 98 104 112 110 Q 98 116 82 112 Z" fill="#34d399" />
+    <path d="M 70 102 Q 78 102 76 112 Q 68 110 70 102 Z" fill="#34d399" />
+    <!-- Australia -->
+    <path d="M 98 116 Q 122 112 134 126 Q 128 144 110 144 Q 96 138 98 116 Z" fill="#86efac" opacity="0.85" />
+    
+    <!-- Cloud formations -->
+    <path d="M 40 40 Q 65 35 90 42 Q 115 48 135 44" stroke="#ffffff" stroke-width="4.5" stroke-linecap="round" opacity="0.32" filter="blur(2px)" />
+    <path d="M 60 76 Q 85 82 105 78" stroke="#ffffff" stroke-width="3.5" stroke-linecap="round" opacity="0.25" filter="blur(1.5px)" />
+    <path d="M 80 120 Q 110 115 130 128" stroke="#ffffff" stroke-width="4" stroke-linecap="round" opacity="0.28" filter="blur(2px)" />
+  </g>
+
+  <!-- 3D Spherical Ambient Shadow & Specular Gloss -->
+  <circle cx="80" cy="80" r="68" fill="url(#sphereShade)" />
+
+  <!-- Inner atmosphere specular edge -->
+  <circle cx="80" cy="80" r="67.5" fill="none" stroke="#67e8f9" stroke-width="1.2" opacity="0.75" />
+</svg>
+

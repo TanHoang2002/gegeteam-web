@@ -5,7 +5,6 @@ import {
   ChevronDown,
   Clock3,
   Gamepad2,
-  Globe,
   Headphones,
   Menu,
   RefreshCw,
@@ -124,7 +123,7 @@ const REGIONS_DATA: Record<string, RegionData> = {
   },
   'NA-WEST': {
     code: 'NA-WEST',
-    name: 'North America',
+    name: 'NA-West',
     emoji: '🦅',
     ping: '142ms',
     row1: [
@@ -212,6 +211,14 @@ const REGION_ASSETS: Record<string, { earth: string; color: string }> = {
   SA: { earth: '/earth-south-america.svg', color: '#4ade80' },
 };
 
+const REGION_SHORT_LABEL: Record<string, string> = {
+  ASIA: 'Asia',
+  EU: 'EU',
+  'NA-WEST': 'NA-W',
+  'NA-EAST': 'NA-E',
+  SA: 'S',
+};
+
 const regions = Object.values(REGIONS_DATA).map((reg) => ({
   name: reg.name,
   code: reg.code,
@@ -239,26 +246,131 @@ function App() {
   const [activeRegion, setActiveRegion] = useState('ASIA');
   const [regionDropdownOpen, setRegionDropdownOpen] = useState(false);
   const [consignModalOpen, setConsignModalOpen] = useState(false);
-  const [consignTab, setConsignTab] = useState<'booster' | 'consign'>('booster');
-
-  // Form states for Ký gửi
-  const [kyGuiServer, setKyGuiServer] = useState('Siel (Asia)');
-  const [kyGuiAmount, setKyGuiAmount] = useState('50');
-  const [kyGuiIGN, setKyGuiIGN] = useState('');
-  const [kyGuiPayoutType, setKyGuiPayoutType] = useState<'bank' | 'crypto'>('bank');
-  const [kyGuiBank, setKyGuiBank] = useState('');
-  const [kyGuiAccount, setKyGuiAccount] = useState('');
-  const [kyGuiOwner, setKyGuiOwner] = useState('');
-  const [kyGuiUsdtNetwork, setKyGuiUsdtNetwork] = useState('TRC20');
-  const [kyGuiUsdtAddress, setKyGuiUsdtAddress] = useState('');
-  const [kyGuiContact, setKyGuiContact] = useState('');
-  const [viewMode, setViewMode] = useState<'excel' | 'cards'>('excel');
+  const [copied, setCopied] = useState(false);
+  const [viewMode, setViewMode] = useState<'excel' | 'cards'>(() => {
+    if (typeof window !== 'undefined' && window.innerWidth <= 768) {
+      return 'cards';
+    }
+    return 'excel';
+  });
   const [search, setSearch] = useState('');
   const [mobileMenu, setMobileMenu] = useState(false);
 
+  // Simple Auth states (tùy chọn, không bắt buộc đăng nhập để dùng web)
+  const [authUser, setAuthUser] = useState<{ username: string; phone?: string } | null>(() => {
+    if (typeof window !== 'undefined') {
+      try {
+        const saved = localStorage.getItem('gegeteam_auth_user');
+        if (saved) return JSON.parse(saved);
+      } catch {
+        // ignore
+      }
+    }
+    return null;
+  });
+  const [authModalOpen, setAuthModalOpen] = useState(false);
+  const [authMode, setAuthMode] = useState<'login' | 'register'>('login');
+  const [authUsername, setAuthUsername] = useState('');
+  const [authPassword, setAuthPassword] = useState('');
+  const [authPhone, setAuthPhone] = useState('');
+  const [authError, setAuthError] = useState('');
+  const [authSuccess, setAuthSuccess] = useState('');
+
+  const handleLogin = (e: React.FormEvent) => {
+    e.preventDefault();
+    setAuthError('');
+    if (!authUsername.trim() || !authPassword.trim()) {
+      setAuthError('Vui lòng điền đầy đủ tài khoản và mật khẩu!');
+      return;
+    }
+    try {
+      const rawUsers = localStorage.getItem('gegeteam_users_db') || '{}';
+      const usersDb = JSON.parse(rawUsers);
+      const existing = usersDb[authUsername.trim().toLowerCase()];
+      if (existing) {
+        if (existing.password === authPassword) {
+          const loggedUser = { username: existing.username, phone: existing.phone };
+          setAuthUser(loggedUser);
+          localStorage.setItem('gegeteam_auth_user', JSON.stringify(loggedUser));
+          setAuthSuccess('Đăng nhập thành công!');
+          setTimeout(() => {
+            setAuthModalOpen(false);
+            setAuthSuccess('');
+          }, 600);
+          return;
+        } else {
+          setAuthError('Mật khẩu không chính xác!');
+          return;
+        }
+      } else {
+        const loggedUser = { username: authUsername.trim() };
+        usersDb[authUsername.trim().toLowerCase()] = { username: authUsername.trim(), password: authPassword };
+        localStorage.setItem('gegeteam_users_db', JSON.stringify(usersDb));
+        setAuthUser(loggedUser);
+        localStorage.setItem('gegeteam_auth_user', JSON.stringify(loggedUser));
+        setAuthSuccess('Đăng nhập thành công!');
+        setTimeout(() => {
+          setAuthModalOpen(false);
+          setAuthSuccess('');
+        }, 600);
+      }
+    } catch {
+      const loggedUser = { username: authUsername.trim() };
+      setAuthUser(loggedUser);
+      localStorage.setItem('gegeteam_auth_user', JSON.stringify(loggedUser));
+      setAuthModalOpen(false);
+    }
+  };
+
+  const handleRegister = (e: React.FormEvent) => {
+    e.preventDefault();
+    setAuthError('');
+    if (!authUsername.trim() || !authPassword.trim()) {
+      setAuthError('Vui lòng nhập tên tài khoản và mật khẩu!');
+      return;
+    }
+    if (authPassword.length < 4) {
+      setAuthError('Mật khẩu tối thiểu 4 ký tự!');
+      return;
+    }
+    try {
+      const rawUsers = localStorage.getItem('gegeteam_users_db') || '{}';
+      const usersDb = JSON.parse(rawUsers);
+      const key = authUsername.trim().toLowerCase();
+      if (usersDb[key]) {
+        setAuthError('Tên tài khoản này đã có người đăng ký, vui lòng chọn tên khác!');
+        return;
+      }
+      usersDb[key] = {
+        username: authUsername.trim(),
+        password: authPassword,
+        phone: authPhone.trim(),
+      };
+      localStorage.setItem('gegeteam_users_db', JSON.stringify(usersDb));
+      const loggedUser = { username: authUsername.trim(), phone: authPhone.trim() };
+      setAuthUser(loggedUser);
+      localStorage.setItem('gegeteam_auth_user', JSON.stringify(loggedUser));
+      setAuthSuccess('Đăng ký thành công! Chào mừng bạn gia nhập GeGe Team.');
+      setTimeout(() => {
+        setAuthModalOpen(false);
+        setAuthSuccess('');
+      }, 700);
+    } catch {
+      const loggedUser = { username: authUsername.trim(), phone: authPhone.trim() };
+      setAuthUser(loggedUser);
+      localStorage.setItem('gegeteam_auth_user', JSON.stringify(loggedUser));
+      setAuthModalOpen(false);
+    }
+  };
+
+  const handleLogout = () => {
+    setAuthUser(null);
+    localStorage.removeItem('gegeteam_auth_user');
+  };
+
   // Calculator states
   const [calcServerKey, setCalcServerKey] = useState('ASIA|Siel|13.9');
-  const [calcAmount, setCalcAmount] = useState<number>(50);
+  const [calcAmount, setCalcAmount] = useState<number | string>(0);
   const [payoutCurrency, setPayoutCurrency] = useState<'VND' | 'USDT'>('VND');
 
   const selectedCalcServer = useMemo(() => {
@@ -267,7 +379,8 @@ function App() {
     return { region, server, rate };
   }, [calcServerKey]);
 
-  const calcTotalVND = Math.round(calcAmount * selectedCalcServer.rate * 1000);
+  const numericCalcAmount = typeof calcAmount === 'number' ? calcAmount : (parseFloat(calcAmount) || 0);
+  const calcTotalVND = Math.round(numericCalcAmount * selectedCalcServer.rate * 1000);
   const calcTotalUSDT = (calcTotalVND / USDT_RATE).toFixed(2);
 
   const filteredServers = useMemo(() => {
@@ -332,7 +445,6 @@ function App() {
             className="nav-link-btn"
             onClick={() => {
               setMobileMenu(false);
-              setConsignTab('booster');
               setConsignModalOpen(true);
             }}
           >
@@ -346,6 +458,34 @@ function App() {
           >
             {t.nav.support}
           </a>
+          {authUser ? (
+            <div className="mobile-auth-bar">
+              <span>👤 <b>{authUser.username}</b></span>
+              <button
+                type="button"
+                className="mobile-logout-btn"
+                onClick={() => {
+                  handleLogout();
+                  setMobileMenu(false);
+                }}
+              >
+                Đăng xuất
+              </button>
+            </div>
+          ) : (
+            <button
+              type="button"
+              className="mobile-login-btn"
+              onClick={() => {
+                setMobileMenu(false);
+                setAuthError('');
+                setAuthSuccess('');
+                setAuthModalOpen(true);
+              }}
+            >
+              <UserRound size={16} /> {t.nav.login}
+            </button>
+          )}
         </nav>
         <div className="header-actions">
           {/* Language Switcher */}
@@ -355,13 +495,36 @@ function App() {
             onClick={() => setLang(lang === 'vi' ? 'en' : 'vi')}
             title={lang === 'vi' ? 'Chuyển sang Tiếng Anh (English)' : 'Switch to Vietnamese'}
           >
-            <Globe size={14} />
             <span>{lang === 'vi' ? '🇻🇳 VN' : '🇬🇧 EN'}</span>
           </button>
-          <button className="icon-button" aria-label="Tài khoản">
-            <UserRound size={18} />
-          </button>
-          <button className="outline-button header-login">{t.nav.login}</button>
+          {authUser ? (
+            <div className="auth-user-badge">
+              <span className="aub-name">
+                <UserRound size={14} /> <b>{authUser.username}</b>
+              </span>
+              <button
+                type="button"
+                className="aub-logout-btn"
+                onClick={handleLogout}
+                title="Đăng xuất"
+              >
+                Đăng xuất
+              </button>
+            </div>
+          ) : (
+            <button
+              type="button"
+              className="outline-button header-login"
+              onClick={() => {
+                setAuthError('');
+                setAuthSuccess('');
+                setAuthModalOpen(true);
+              }}
+            >
+              <UserRound size={15} />
+              <span>{t.nav.login}</span>
+            </button>
+          )}
           <button
             className="menu-toggle"
             aria-label="Mở menu"
@@ -735,7 +898,7 @@ function App() {
                     onChange={(e) => setCalcServerKey(e.target.value)}
                   >
                     {Object.values(REGIONS_DATA).map((reg) => (
-                      <optgroup key={reg.code} label={`Region ${reg.name}`}>
+                      <optgroup key={reg.code} label={`${reg.name} (${REGION_SHORT_LABEL[reg.code] || reg.code})`}>
                         {[...reg.row1, ...reg.row2]
                           .filter((s) => s.rate !== null)
                           .map((s) => (
@@ -743,7 +906,7 @@ function App() {
                               key={`${reg.code}-${s.server}`}
                               value={`${reg.code}|${s.server}|${s.rate}`}
                             >
-                              {s.server} ({reg.name} · Rate: {s.rate})
+                              {s.server} ({REGION_SHORT_LABEL[reg.code] || reg.code}) · {s.rate}k
                             </option>
                           ))}
                       </optgroup>
@@ -756,10 +919,20 @@ function App() {
                   <div className="calc-amount-input-wrap">
                     <input
                       type="number"
-                      min="1"
+                      min="0"
                       step="1"
+                      placeholder="0"
                       value={calcAmount}
-                      onChange={(e) => setCalcAmount(Math.max(0, parseFloat(e.target.value) || 0))}
+                      onFocus={(e) => e.target.select()}
+                      onChange={(e) => {
+                        const val = e.target.value;
+                        if (val === '') {
+                          setCalcAmount('');
+                        } else {
+                          const parsed = parseFloat(val);
+                          setCalcAmount(isNaN(parsed) ? '' : Math.max(0, parsed));
+                        }
+                      }}
                     />
                     <span className="calc-amount-unit">M</span>
                   </div>
@@ -807,8 +980,8 @@ function App() {
                   <a
                     href={`https://zalo.me/0936854505?text=${encodeURIComponent(
                       payoutCurrency === 'USDT'
-                        ? `Chào Admin GeGe Team, mình muốn ký gửi ${calcAmount}M Kina tại server ${selectedCalcServer.server} (${selectedCalcServer.region}), nhận thanh toán qua VÍ TIỀN SỐ USDT: ${calcTotalUSDT} USDT (Tương đương ${calcTotalVND.toLocaleString('vi-VN')} VNĐ). Nhờ Admin hỗ trợ!`
-                        : `Chào Admin GeGe Team, mình muốn ký gửi ${calcAmount}M Kina tại server ${selectedCalcServer.server} (${selectedCalcServer.region}), số tiền ước tính ${calcTotalVND.toLocaleString('vi-VN')} VNĐ (hoặc ${calcTotalUSDT} USDT). Nhờ Admin hỗ trợ!`
+                        ? `Chào Admin GeGe Team, mình muốn ký gửi ${calcAmount || 0}M Kina tại server ${selectedCalcServer.server} (${selectedCalcServer.region}), nhận thanh toán qua VÍ TIỀN SỐ USDT: ${calcTotalUSDT} USDT (Tương đương ${calcTotalVND.toLocaleString('vi-VN')} VNĐ). Nhờ Admin hỗ trợ!`
+                        : `Chào Admin GeGe Team, mình muốn ký gửi ${calcAmount || 0}M Kina tại server ${selectedCalcServer.server} (${selectedCalcServer.region}), số tiền ước tính ${calcTotalVND.toLocaleString('vi-VN')} VNĐ (hoặc ${calcTotalUSDT} USDT). Nhờ Admin hỗ trợ!`
                     )}`}
                     target="_blank"
                     rel="noopener noreferrer"
@@ -846,7 +1019,6 @@ function App() {
               type="button"
               className="service-card service-card-btn"
               onClick={() => {
-                setConsignTab('booster');
                 setConsignModalOpen(true);
               }}
             >
@@ -1055,58 +1227,38 @@ function App() {
                 </button>
               </div>
 
-              {/* TAB SELECTOR */}
-              <div className="modal-tabs-nav">
-                <button
-                  type="button"
-                  className={`modal-tab-btn ${consignTab === 'booster' ? 'active' : ''}`}
-                  onClick={() => setConsignTab('booster')}
-                >
-                  {t.modal.tabBooster}
-                </button>
-                <button
-                  type="button"
-                  className={`modal-tab-btn ${consignTab === 'consign' ? 'active' : ''}`}
-                  onClick={() => setConsignTab('consign')}
-                >
-                  {t.modal.tabConsign}
-                </button>
-              </div>
-
-              {/* TAB 1: BOOSTER */}
-              {consignTab === 'booster' && (
-                <div className="modal-booster-body">
+              {/* BOOSTER BODY */}
+              <div className="modal-booster-body">
                   <div className="booster-combos-grid">
-                    {/* FULL COMBO 1 PHÉ */}
+                    {/* FULL COMBO 1 PHE */}
                     <div className="booster-combo-card combo-standard">
                       <div className="bcc-header">
                         <span className="bcc-badge">{t.modal.saveBadge}</span>
-                        <h4>FULL COMBO 1 PHÉ</h4>
-                        <div className="bcc-price">650k</div>
+                        <h4>FULL COMBO 1 PHE</h4>
+                        <div className="bcc-price">950k</div>
                       </div>
                       <ul className="bcc-features">
                         <li>✓ Leveling 1 &gt; 45</li>
                         <li>✓ Full nhiệm vụ xanh</li>
                         <li>✓ Sealed Dungeon / Stronghold</li>
                         <li>✓ Full lông thường</li>
-                        <li>✓ Spacetime Rift</li>
                       </ul>
                       <a
-                        href="https://zalo.me/0936854505?text=Ch%C3%A0o%20Admin%20GeGe%20Team%2C%20m%C3%ACnh%20mu%E1%BB%91n%20%C4%91%E1%BA%B7t%20g%C3%B3i%20FULL%20COMBO%201%20PH%C3%89%20(650k)%20AION%202"
+                        href="https://zalo.me/0936854505?text=Ch%C3%A0o%20Admin%20GeGe%20Team%2C%20m%C3%ACnh%20mu%E1%BB%91n%20%C4%91%E1%BA%B7t%20g%C3%B3i%20FULL%20COMBO%201%20PHE%20(950k)%20AION%202"
                         target="_blank"
                         rel="noopener noreferrer"
                         className="bcc-btn bcc-btn-blue"
                       >
-                        Đặt Gói 650k Qua Zalo →
+                        Đặt Gói 950k Qua Zalo →
                       </a>
                     </div>
 
-                    {/* FULL COMBO 2 PHÉ VIP */}
+                    {/* COMBO 2 PHE VIP */}
                     <div className="booster-combo-card combo-vip">
                       <div className="bcc-header">
                         <span className="bcc-badge vip">{t.modal.vipBadge}</span>
-                        <h4>FULL COMBO 2 PHÉ VIP</h4>
-                        <div className="bcc-price vip">850k</div>
+                        <h4>COMBO 2 PHE</h4>
+                        <div className="bcc-price vip">1390k</div>
                       </div>
                       <ul className="bcc-features">
                         <li>✓ Leveling 1 &gt; 45</li>
@@ -1116,12 +1268,12 @@ function App() {
                         <li>✓ Spacetime Rift</li>
                       </ul>
                       <a
-                        href="https://zalo.me/0936854505?text=Ch%C3%A0o%20Admin%20GeGe%20Team%2C%20m%C3%ACnh%20mu%E1%BB%91n%20%C4%91%E1%BA%B7t%20g%C3%B3i%20FULL%20COMBO%202%20PH%C3%89%20VIP%20(850k)%20AION%202"
+                        href="https://zalo.me/0936854505?text=Ch%C3%A0o%20Admin%20GeGe%20Team%2C%20m%C3%ACnh%20mu%E1%BB%91n%20%C4%91%E1%BA%B7t%20g%C3%B3i%20COMBO%202%20PHE%20(1390k)%20AION%202"
                         target="_blank"
                         rel="noopener noreferrer"
                         className="bcc-btn bcc-btn-orange"
                       >
-                        Đặt Gói VIP 850k Qua Zalo →
+                        Đặt Gói 1390k Qua Zalo →
                       </a>
                     </div>
                   </div>
@@ -1140,11 +1292,11 @@ function App() {
                       </div>
                       <div className="bst-row">
                         <span className="bst-name">🌌 Full Spacetime Rift</span>
-                        <span className="bst-price">320k</span>
+                        <span className="bst-price">650k</span>
                       </div>
                       <div className="bst-row">
                         <span className="bst-name">🪶 Full Lông Thường / Lông Abyss</span>
-                        <span className="bst-price">50k</span>
+                        <span className="bst-price">50k/h</span>
                       </div>
                       <div className="bst-row">
                         <span className="bst-name">🐾 Farm Pet</span>
@@ -1174,192 +1326,105 @@ function App() {
                     </div>
                   </div>
                 </div>
-              )}
+            </div>
+          </div>
+        )}
 
-              {/* TAB 2: KÝ GỬI KINAH (CÓ CHỌN NGÂN HÀNG VNĐ HOẶC VÍ USDT) */}
-              {consignTab === 'consign' && (
-                <div className="modal-consign-body">
-                  <div className="consign-intro-banner">
-                    <span className="cib-icon">💰</span>
-                    <div>
-                      <b>{t.modal.consignIntroTitle}</b>
-                      <p>{t.modal.consignIntroDesc}</p>
-                    </div>
-                  </div>
-
-                  {/* Chọn phương thức nhận tiền: Ngân hàng VNĐ vs Ví USDT */}
-                  <div className="consign-payout-selector">
-                    <span className="cps-label">{t.modal.payoutType}</span>
-                    <div className="cps-options">
-                      <button
-                        type="button"
-                        className={`cps-btn ${kyGuiPayoutType === 'bank' ? 'active' : ''}`}
-                        onClick={() => setKyGuiPayoutType('bank')}
-                      >
-                        {t.modal.typeBank}
-                      </button>
-                      <button
-                        type="button"
-                        className={`cps-btn ${kyGuiPayoutType === 'crypto' ? 'active' : ''}`}
-                        onClick={() => setKyGuiPayoutType('crypto')}
-                      >
-                        <img src="/usdt-icon.svg" alt="USDT" className="cps-usdt-icon" />
-                        {t.modal.typeCrypto}
-                      </button>
-                    </div>
-                  </div>
-
-                  <div className="consign-form-grid">
-                    <div className="cfg-field">
-                      <label>{t.modal.consignServer}</label>
-                      <select value={kyGuiServer} onChange={(e) => setKyGuiServer(e.target.value)}>
-                        {Object.values(REGIONS_DATA).map((reg) => (
-                          <optgroup key={reg.code} label={`Region ${reg.name}`}>
-                            {[...reg.row1, ...reg.row2]
-                              .filter((s) => s.rate !== null)
-                              .map((s) => (
-                                <option key={`${reg.code}-${s.server}`} value={`${s.server} (${reg.name})`}>
-                                  {s.server} ({reg.name} · Rate: {s.rate})
-                                </option>
-                              ))}
-                          </optgroup>
-                        ))}
-                      </select>
-                    </div>
-
-                    <div className="cfg-field">
-                      <label>{t.modal.consignAmount}</label>
-                      <input
-                        type="number"
-                        placeholder="VD: 50"
-                        value={kyGuiAmount}
-                        onChange={(e) => setKyGuiAmount(e.target.value)}
-                      />
-                    </div>
-
-                    <div className="cfg-field">
-                      <label>{t.modal.consignIGN}</label>
-                      <input
-                        type="text"
-                        placeholder="VD: NightStalker"
-                        value={kyGuiIGN}
-                        onChange={(e) => setKyGuiIGN(e.target.value)}
-                      />
-                    </div>
-
-                    {/* Các trường nhận tiền tuỳ theo VNĐ hay USDT */}
-                    {kyGuiPayoutType === 'bank' ? (
-                      <>
-                        <div className="cfg-field">
-                          <label>{t.modal.bankName}</label>
-                          <input
-                            type="text"
-                            placeholder="VD: Vietcombank / MB / Techcombank"
-                            value={kyGuiBank}
-                            onChange={(e) => setKyGuiBank(e.target.value)}
-                          />
-                        </div>
-
-                        <div className="cfg-field">
-                          <label>{t.modal.bankAccount}</label>
-                          <input
-                            type="text"
-                            placeholder="VD: 0123456789"
-                            value={kyGuiAccount}
-                            onChange={(e) => setKyGuiAccount(e.target.value)}
-                          />
-                        </div>
-
-                        <div className="cfg-field">
-                          <label>{t.modal.bankOwner}</label>
-                          <input
-                            type="text"
-                            placeholder="VD: NGUYEN VAN A"
-                            value={kyGuiOwner}
-                            onChange={(e) => setKyGuiOwner(e.target.value)}
-                          />
-                        </div>
-                      </>
-                    ) : (
-                      <>
-                        <div className="cfg-field">
-                          <label>{t.modal.cryptoNetwork}</label>
-                          <select
-                            value={kyGuiUsdtNetwork}
-                            onChange={(e) => setKyGuiUsdtNetwork(e.target.value)}
-                          >
-                            <option value="TRC20">TRC20 (Mạng Tron - Phí rẻ, nhanh)</option>
-                            <option value="BEP20">BEP20 (BNB Smart Chain)</option>
-                            <option value="POLYGON">Polygon (USDT POS)</option>
-                          </select>
-                        </div>
-
-                        <div className="cfg-field full-width">
-                          <label>{t.modal.cryptoAddress}</label>
-                          <input
-                            type="text"
-                            placeholder="VD: T9yD14Nj9j7xAB4dbGe9kEDUXGs9suChoi..."
-                            value={kyGuiUsdtAddress}
-                            onChange={(e) => setKyGuiUsdtAddress(e.target.value)}
-                          />
-                          <small className="cfg-hint">{t.modal.cryptoNote}</small>
-                        </div>
-                      </>
-                    )}
-
-                    <div className="cfg-field full-width">
-                      <label>{t.modal.contactPhone}</label>
-                      <input
-                        type="text"
-                        placeholder="VD: 0912345678"
-                        value={kyGuiContact}
-                        onChange={(e) => setKyGuiContact(e.target.value)}
-                      />
-                    </div>
-                  </div>
-
-                  <div className="consign-steps-row">
-                    <div className="csr-step">
-                      <b>{t.modal.step1}</b>
-                      <small>{t.modal.step1Sub}</small>
-                    </div>
-                    <div className="csr-arrow">→</div>
-                    <div className="csr-step">
-                      <b>{t.modal.step2}</b>
-                      <small>{t.modal.step2Sub}</small>
-                    </div>
-                    <div className="csr-arrow">→</div>
-                    <div className="csr-step">
-                      <b>{t.modal.step3}</b>
-                      <small>{t.modal.step3Sub}</small>
-                    </div>
-                  </div>
-
-                  <button
-                    type="button"
-                    className="consign-submit-btn"
-                    onClick={() => {
-                      let payoutInfo = '';
-                      if (kyGuiPayoutType === 'crypto') {
-                        payoutInfo = `- Hình thức nhận tiền: VÍ TIỀN SỐ USDT (${kyGuiUsdtNetwork})\n- Địa chỉ ví USDT: ${kyGuiUsdtAddress || 'Chưa điền'}`;
-                      } else {
-                        payoutInfo = `- Ngân hàng: ${kyGuiBank || 'Chưa điền'}\n- STK nhận tiền: ${kyGuiAccount || 'Chưa điền'}\n- Tên chủ thẻ: ${kyGuiOwner || 'Chưa điền'}`;
-                      }
-
-                      const msg = `Chào Admin GeGe Team, mình muốn KÝ GỬI BÁN GIÙM KINAH:
-- Server: ${kyGuiServer}
-- Số Kinah: ${kyGuiAmount}M
-- Tên nhân vật game (IGN): ${kyGuiIGN || 'Chưa điền'}
-${payoutInfo}
-- SĐT/Zalo liên hệ: ${kyGuiContact || 'Chưa điền'}
-Nhờ Admin hỗ trợ nhận Kinah và chuyển tiền giúp mình!`;
-                      window.open(`https://zalo.me/0936854505?text=${encodeURIComponent(msg)}`, '_blank', 'noopener');
-                    }}
-                  >
-                    {t.modal.submitBtn}
-                  </button>
+        {/* MODAL ĐĂNG NHẬP / ĐĂNG KÝ TÙY CHỌN (KHÔNG BẮT BUỘC ĐỂ DÙNG WEB) */}
+        {authModalOpen && (
+          <div className="modal-overlay" onClick={() => setAuthModalOpen(false)}>
+            <div className="auth-modal-card" onClick={(e) => e.stopPropagation()}>
+              <div className="auth-modal-header">
+                <div className="auth-modal-title">
+                  <span className="auth-pill-tag">THÀNH VIÊN GEGE TEAM</span>
+                  <h3>{authMode === 'login' ? 'Đăng Nhập Tài Khoản' : 'Đăng Ký Tài Khoản'}</h3>
+                  <p className="auth-modal-sub">
+                    {authMode === 'login'
+                      ? 'Đăng nhập tiện lợi (hoàn toàn không bắt buộc để xem web)'
+                      : 'Tạo tài khoản nhanh chóng chỉ trong 10 giây'}
+                  </p>
                 </div>
-              )}
+                <button
+                  type="button"
+                  className="modal-close-btn"
+                  onClick={() => setAuthModalOpen(false)}
+                  aria-label="Đóng"
+                >
+                  ✕
+                </button>
+              </div>
+
+              <div className="auth-tabs">
+                <button
+                  type="button"
+                  className={`auth-tab-btn ${authMode === 'login' ? 'active' : ''}`}
+                  onClick={() => {
+                    setAuthMode('login');
+                    setAuthError('');
+                    setAuthSuccess('');
+                  }}
+                >
+                  Đăng Nhập
+                </button>
+                <button
+                  type="button"
+                  className={`auth-tab-btn ${authMode === 'register' ? 'active' : ''}`}
+                  onClick={() => {
+                    setAuthMode('register');
+                    setAuthError('');
+                    setAuthSuccess('');
+                  }}
+                >
+                  Đăng Ký Mới
+                </button>
+              </div>
+
+              <form className="auth-form" onSubmit={authMode === 'login' ? handleLogin : handleRegister}>
+                {authError && <div className="auth-alert error">{authError}</div>}
+                {authSuccess && <div className="auth-alert success">{authSuccess}</div>}
+
+                <div className="auth-field">
+                  <label>Tên tài khoản / Nickname</label>
+                  <input
+                    type="text"
+                    required
+                    placeholder="VD: NightStalker"
+                    value={authUsername}
+                    onChange={(e) => setAuthUsername(e.target.value)}
+                  />
+                </div>
+
+                {authMode === 'register' && (
+                  <div className="auth-field">
+                    <label>Số điện thoại hoặc Zalo (tùy chọn)</label>
+                    <input
+                      type="text"
+                      placeholder="VD: 0912345678"
+                      value={authPhone}
+                      onChange={(e) => setAuthPhone(e.target.value)}
+                    />
+                  </div>
+                )}
+
+                <div className="auth-field">
+                  <label>Mật khẩu</label>
+                  <input
+                    type="password"
+                    required
+                    placeholder="Nhập mật khẩu của bạn"
+                    value={authPassword}
+                    onChange={(e) => setAuthPassword(e.target.value)}
+                  />
+                </div>
+
+                <button type="submit" className="auth-submit-btn">
+                  {authMode === 'login' ? 'Đăng Nhập Ngay →' : 'Tạo Tài Khoản →'}
+                </button>
+
+                <div className="auth-note-guest">
+                  💡 <i>Bạn hoàn toàn có thể tự do xem tỷ giá, tính tiền và đặt dịch vụ mà <b>không cần đăng nhập</b>.</i>
+                </div>
+              </form>
             </div>
           </div>
         )}

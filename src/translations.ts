@@ -97,7 +97,7 @@ export const TRANSLATIONS = {
     },
     modal: {
       tag: 'AION 2 GLOBAL',
-      title: 'Dịch Vụ Booster & Ký Gửi Kinah',
+      title: 'Bảng Giá Dịch Vụ Booster',
       tabBooster: '⚡ Bảng Giá Booster Cày Cấp',
       tabConsign: '📦 Ký Gửi Kinah (Bán Giùm & CK / USDT)',
       saveBadge: 'TIẾT KIỆM',
@@ -229,7 +229,7 @@ export const TRANSLATIONS = {
     },
     modal: {
       tag: 'AION 2 GLOBAL',
-      title: 'Boosting Services & Kinah Consignment',
+      title: 'Boosting Services Price List',
       tabBooster: '⚡ Leveling Booster Price List',
       tabConsign: '📦 Kinah Consignment (Fast Sale & VNĐ/USDT Payout)',
       saveBadge: 'SAVINGS',

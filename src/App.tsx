@@ -123,7 +123,7 @@ const REGIONS_DATA: Record<string, RegionData> = {
   },
   'NA-WEST': {
     code: 'NA-WEST',
-    name: 'NA-West',
+    name: 'NA West',
     emoji: '🦅',
     ping: '142ms',
     row1: [
@@ -149,7 +149,7 @@ const REGIONS_DATA: Record<string, RegionData> = {
   },
   'NA-EAST': {
     code: 'NA-EAST',
-    name: 'NA-East',
+    name: 'NA East',
     emoji: '🗽',
     ping: '158ms',
     row1: [
@@ -396,12 +396,6 @@ function App() {
     // Or match across all regions
     return allServerList.filter((server) => server.name.toLowerCase().includes(q));
   }, [activeRegion, search]);
-
-  const copyDiscord = async () => {
-    await navigator.clipboard?.writeText('discord.gg/gege-team');
-    setCopied(true);
-    window.setTimeout(() => setCopied(false), 1800);
-  };
 
   const currentRegionData = REGIONS_DATA[activeRegion] || REGIONS_DATA['ASIA'];
 
@@ -704,8 +698,6 @@ function App() {
                         <span className="rc-ping">{region.ping}</span>
                       </span>
                     </div>
-
-                    {isSelected && <span className="rc-active-badge">ACTIVE</span>}
                   </button>
                 );
               })}
